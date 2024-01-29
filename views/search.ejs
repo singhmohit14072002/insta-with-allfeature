@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+    </style>
+    <title>feed</title>
+</head>
+
+
+<body>
+    <div class="main w-full h-screen flex">
+        <div class="left w-[25%] h-screen fixed flex flex-col px-3 py-5 shadow-[0_20px_30px_-15px_rgba(0,0,0,0.3)]">
+            <div class="logo w-[50%] relative">
+                <img class="w-full h-full object-cover" src="/images/download.png" alt="">
+            </div>
+            <div class="links w-full mt-5 flex flex-col gap-1">
+                <a href="/home">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-home-5-line"></i>
+                        <h3 class="text-lg font-normal">Home</h3>
+                    </div>
+                </a>
+                <a href="/search">
+                    <div id="seach"
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-search-line"></i>
+                        <h3 class="text-lg font-normal">Search</h3>
+                    </div>
+                </a>
+                <a href="/feed">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-compass-discover-line"></i>
+                        <h3 class="text-lg font-normal">Explore</h3>
+                    </div>
+                </a>
+                <a href="/reels">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-movie-2-line"></i>
+                        <h3 class="text-lg font-normal">Reels</h3>
+                    </div>
+                </a>
+                <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-chat-1-line"></i>
+                    <h3 class="text-lg font-normal">Message</h3>
+                </div>
+                <a href="/notification">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-heart-line"></i>
+                        <h3 class="text-lg font-normal">Notification</h3>
+                    </div>
+                </a>
+                <div class="baby">
+                    <div id="crete"
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-add-box-line"></i>
+                        <h3 class="text-lg font-normal">Create</h3>
+                    </div>
+                    <div id="cretepost"
+                        class="hidden h-[60px] w-[120px] bg-slate-100 absolute flex rounded-md flex-col gap-1 transition-all">
+                        <div
+                            class="post w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createpost">Create Post</a>
+                        </div>
+                        <div
+                            class="reels w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createreels">Create Reels</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/logout">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-logout-box-line"></i>
+                        <h3 class="text-lg font-normal">Logout</h3>
+                    </div>
+                </a>
+                <a href="/profile" class="py-1">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
+                        <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
+                            <img src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                        </div>
+                        <h3 class="text-lg font-normal">Profile</h3>
+                    </div>
+                </a>
+            </div>
+            <div
+                class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all mt-14">
+                <i class="text-[28px] font-medium ri-menu-line"></i>
+                <h3 class="text-lg font-normal">Create</h3>
+            </div>
+
+        </div>
+        <div class="right ml-[25%] w-[75%]  flex py-2 px-2 py-3 gap-2 flex flex-col">
+            <h1 class="text-2xl dont-semibold">Search</h1>
+            <div class="searchdiv flex  flex-col px-2 mt-3">
+                <label for="searchInput">Enter username:</label>
+                <input class="bg-slate-100 outline-none mt-4 px-2 py-1 rounded-md" type="text" id="searchInput"
+                    placeholder="Enter username">
+                <button class="bg-blue-500 w-[100px] px-2 py-1 font-semibold rounded text-white mt-2"
+                    onclick="searchUser()">Search</button>
+            </div>
+            <div id="searcheduser" class="users px-2">
+                
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var flag = 0;
+        document.querySelector(".baby").addEventListener("click", () => {
+            if (flag === 0) {
+                document.querySelector('#cretepost').classList.remove("hidden")
+                flag = 1
+
+            }
+            else {
+                document.querySelector('#cretepost').classList.add("hidden")
+                flag = 0
+            }
+        })
+
+        console.log(document.querySelector("#searchinput").value);
+
+
+        let babylike = 0
+        function like(userid) {
+            if (babylike == 0) {
+                babylike = 1
+                document.querySelector(`#like${userid}`).classList.remove("text-red-100");
+                document.querySelector(`#like${userid}`).classList.add("text-red-600");
+                axios.get(`/like/${userid}`)
+                    .then(function (response) {
+                        document.querySelector(`#like${userid}`).textContent = response.data.likes.length;
+                        // console.log(response.data.likes.length);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+            }
+            else {
+                document.querySelector(`#like${userid}`).classList.remove("text-red-600");
+                document.querySelector(`#like${userid}`).classList.add("text-red-100");
+                babylike = 0
+                axios.get(`/like/${userid}`)
+                    .then(function (response) {
+                        document.querySelector(`#like${userid}`).textContent = response.data.likes.length;
+                        // console.log(response.data.likes.length);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+            }
+        }
+
+        function searceduser(username, userprofil, name){
+            // 
+            var template = `<div onclick="sendtoprofile()" class="user w-1/2 h-[70px] bg-slate-100 flex items-center px-3 rounded-md">
+                    <div class="profil w-[55px] h-[55px] bg-slate-200 rounded-full">
+                        <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${userprofil}" alt="">
+                    </div>
+                    <div class="userdets leading-none ml-3">
+                        <h1 class="text-xl">${username}</h1>
+                        <h1>${name}</h1>
+                    </div>
+                </div>`
+                document.querySelector("#searcheduser").innerHTML +=template
+
+        }
+
+        function nouserfound(){
+            var template = `<div class="flex items-center justify-between">
+                <h1 class="text-4xl font-bold"> No User Found</h1>
+                </div>`
+                document.querySelector("#searcheduser").innerHTML +=template
+        }
+
+        function searchUser() {
+            const search = document.querySelector("#searchInput").value
+
+        
+            console.log(search);
+            axios.get(`/search/${search}`)
+            .then(function (response) {
+                // handle success
+                if(response.data.length==0){
+                    nouserfound()
+                }
+                response.data.forEach(singeldata=>{
+                    searceduser(singeldata.username, singeldata.profilepic, singeldata.name)
+                })
+                console.log(response.data);
+            })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+        }
+
+
+    </script>
+
+</body>
+
+</html>

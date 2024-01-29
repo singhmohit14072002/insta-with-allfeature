@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <title>feed</title>
+</head>
+
+<body>
+    <div class="main w-full h-screen flex">
+        <div class="left w-[25%] h-screen fixed flex flex-col px-3 py-5 shadow-[0_20px_30px_-15px_rgba(0,0,0,0.3)]">
+            <div class="logo w-[50%] relative">
+                <img class="w-full h-full object-cover" src="/images/download.png" alt="">
+            </div>
+            <div class="links w-full mt-5 flex flex-col gap-1">
+                <a href="/home">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-home-5-line"></i>
+                    <h3 class="text-lg font-normal">Home</h3>
+                </div>
+                </a>
+                <a href="/search">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-search-line"></i>
+                    <h3 class="text-lg font-normal">Search</h3>
+                </div>
+                </a>
+                <a href="/feed">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-compass-discover-line"></i>
+                    <h3 class="text-lg font-normal">Explore</h3>
+                </div>
+                </a>
+                <a href="/reels">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-movie-2-line"></i>
+                    <h3 class="text-lg font-normal">Reels</h3>
+                </div>
+                </a>
+                <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-chat-1-line"></i>
+                    <h3 class="text-lg font-normal">Message</h3>
+                </div>
+                <a href="/notification">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-heart-line"></i>
+                    <h3 class="text-lg font-normal">Notification</h3>
+                </div>
+                </a>
+                <div id="create" class="baby">
+                    <div id="crete"
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-add-box-line"></i>
+                        <h3 class="text-lg font-normal">Create</h3>
+                    </div>
+                    <div id="cretepost"
+                        class="hidden h-[60px] w-[120px] bg-slate-100 absolute flex rounded-md flex-col gap-1 transition-all">
+                        <div
+                            class="post w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createpost">Create Post</a>
+                        </div>
+                        <div
+                            class="reels w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createreels">Create Reels</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/logout">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-logout-box-line"></i>
+                    <h3 class="text-lg font-normal">Logout</h3>
+                </div>
+                </a>
+                <a href="/profile" class="py-1">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
+                        <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
+                            <img src="/images/uploads/<%=user.profilepic%>" alt="">
+                        </div>
+                        <h3 class="text-lg font-normal">Profile</h3>
+                    </div>
+                </a>
+            </div>
+            <div
+                class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all mt-14">
+                <i class="text-[28px] font-medium ri-menu-line"></i>
+                <h3 class="text-lg font-normal">Create</h3>
+            </div>
+
+        </div>
+        <div class="right ml-[25%] w-[75%] h-[200vh] p-3">
+            <div class="post w-2/3 mx-auto h-[150vh]">
+                <div class="part1 w-full flex gap-3 px-8 py-3 ">
+                    <div class="picture rounded-full w-[100px] h-[100px] bg-red-100">
+                        <img class="w-full h-full rounded-full object-cover" src="/images/uploads/<%=user.profilepic%>" alt="">
+                    </div>
+                    <div class="profile-data">
+                        <div class="edit flex gap-20">
+                            <h1><%=user.username%></h1>
+                            <button class="bg-blue-500 text-white px-2 py-1 rounded text-sm"><a href="/editpage">Edit Profile</a></button>
+                        </div>
+                        <div class="followers w-full flex gap-5 items center mt-2">
+                            <a class="bg-blue-500 text-white px-2 py-1 rounded text-sm" href=""> <%= user.posts.length %> Post</a>
+                            <a class="bg-blue-500 text-white px-2 py-1 rounded text-sm" href=""> <%= user.follower.length %>  followers</a>
+                            <a class="bg-blue-500 text-white px-2 py-1 rounded text-sm" href=""><%= user.following.length %>  following</a>
+                        </div>
+                        <div class="description">
+                            <h3><%=user.name%></h3>
+                            <h3><%=user.bio%></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="part2 w-full px-8">
+                    <h2>highlights</h2>
+                    <div class="storys w-full flex gap-2 mt-3 ">
+                        <div class="highlight w-[70px] min-h flex flex-col items-center p-1">
+                            <div class="story w-[60px] h-[60px] rounded-full bg-red-100">
+                            </div>
+                            <p>hilight</p>
+                        </div>
+                        <div class="highlight w-[70px] min-h flex flex-col items-center p-1">
+                            <div class="story w-[60px] h-[60px] rounded-full bg-red-100">
+                            </div>
+                            <p>hilight</p>
+                        </div>
+                        <div class="highlight w-[70px] min-h flex flex-col items-center p-1">
+                            <div class="story w-[60px] h-[60px] rounded-full bg-red-100">
+                            </div>
+                            <p>hilight</p>
+                        </div>
+                        <div class="highlight w-[70px] min-h flex flex-col items-center p-1">
+                            <div class="story w-[60px] h-[60px] rounded-full bg-slate-200 flex items-center justify-center">
+                                <i class="ri-add-line text-4xl text-gray-300"></i>
+                            </div>
+                            <p>Add</p>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="w-full posts flex gap-1 px-4 flex-wrap justify-start mt-3">
+
+                    <%user.posts.forEach(function(dets){%>
+                        <div class="post w-[190px] h-[190px] bg-slate-300 " >
+                            <a href="">
+                                <img class="w-full h-full object-cover" src="/images/uploads/<%=dets.postPic%>" alt="">
+                            </a>
+                        </div>
+                    <%})%>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var flag = 0;
+        document.querySelector(".baby").addEventListener("click", () => {
+            if (flag === 0) {
+                document.querySelector('#cretepost').classList.remove("hidden")
+                flag = 1
+
+            }
+            else {
+                document.querySelector('#cretepost').classList.add("hidden")
+                flag = 0
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

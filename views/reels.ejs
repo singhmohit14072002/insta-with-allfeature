@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <title>feed</title>
+</head>
+
+<body>
+    <div class="main w-full h-screen flex">
+        <div class="left w-[25%] h-screen fixed flex flex-col px-3 py-5 shadow-[0_20px_30px_-15px_rgba(0,0,0,0.3)]">
+            <div class="logo w-[50%] relative">
+                <img class="w-full h-full object-cover" src="/images/download.png" alt="">
+            </div>
+            <div class="links w-full mt-5 flex flex-col gap-1">
+                <a href="/home">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-home-5-line"></i>
+                        <h3 class="text-lg font-normal">Home</h3>
+                    </div>
+                </a>
+                <a href="/search">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-search-line"></i>
+                    <h3 class="text-lg font-normal">Search</h3>
+                </div>
+                </a>
+                <a href="/feed">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-compass-discover-line"></i>
+                        <h3 class="text-lg font-normal">Explore</h3>
+                    </div>
+                </a>
+                <a id="reels" href="/reels">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full relative rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-movie-2-line"></i>
+                        <h3 class="text-lg font-normal relative ">Reels </h3>
+
+                    </div>
+                </a>
+                <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-chat-1-line"></i>
+                    <h3 class="text-lg font-normal">Message</h3>
+                </div>
+                <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-heart-line"></i>
+                    <h3 class="text-lg font-normal">Notification</h3>
+                </div>
+                <div class="baby">
+                    <div id="crete"
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-add-box-line"></i>
+                        <h3 class="text-lg font-normal">Create</h3>
+                    </div>
+                    <div id="cretepost" class="hidden h-[60px] w-[120px] bg-slate-100 absolute flex rounded-md flex-col gap-1 transition-all">
+                        <div class="post w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createpost">Create Post</a>
+                        </div>
+                        <div class="reels w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createreels">Create Reels</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/logout">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-logout-box-line"></i>
+                        <h3 class="text-lg font-normal">Logout</h3>
+                    </div>
+                </a>
+                <a href="/profile" class="py-1">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
+                        <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
+                            <img src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                        </div>
+                        <h3 class="text-lg font-normal">Profile</h3>
+                    </div>
+                </a>
+            </div>
+            <div
+                class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all mt-14">
+                <i class="text-[28px] font-medium ri-menu-line"></i>
+                <h3 class="text-lg font-normal">Create</h3>
+            </div>
+
+        </div>
+        <div class="right ml-[25%] w-[75%] py-2 px-4 gap-2">
+            <div class="reels w-96 min-h mx-auto flex flex-col gap-3">
+                <%reels.forEach(singlereel=>{%>
+                    
+               
+                <div class="reel h-screen border-2 bg-black relative rounded-lg text-white ">
+                    <video class="w-ful h-full obejct-cover" autoplay muted loop src="/images/uploads/<%=singlereel.path%>" ></video>
+                    <div class="user absolute bottom-0 bg-gradient-to-t from-black to-transparent ">
+                        <div class="profile flex items-center gap-2 pl-3">
+                            <div class="img w-10 h-10 bg-red-400 rounded-full">
+                                <img class="w-full h-full obejct-cover" src="/images/uploads/<%=singlereel.userid.profilepic%>" alt="">
+                            </div>
+                            <h1 class="text-white"><%=singlereel.userid.username%></h1>
+                            <%if(loggedinuser.following.includes(singlereel.userid._id)){%>
+                                <a data-state="" id="followRequest"
+                                    class="font-bold text-white bg-red-500 px-3 py-1 rounded"
+                                    href="/unfollow/">UnFollow</a>
+                                    <%} else { %>
+                                        <a data-state="" id="followRequest"
+                                            class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
+                                            href="/follow/">Follow</a>
+                                        <%}%>
+
+                        </div>
+                        <div class="descriptio w-4/5 pl-3 ">
+                            <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum, atque!</h1>
+                        </div>
+                        <div class="likes  absolute right-4 flex gap-4 flex-col top-[-150px] text-white ">
+                            <div class="like flex flex-col items-center leading-3">
+                                <i class="text-xl ri-heart-line"></i>
+                                100k
+                            </div>
+                            <div class="like flex flex-col items-center">
+                                <i class="text-xl ri-chat-1-line"></i>
+                                1,233
+                            </div>
+                            <div class="like flex flex-col items-center">
+                                <i class="text-xl ri-share-forward-line"></i>
+                            </div>
+                            <div class="like flex flex-col items-center">
+                                <i class="text-xl ri-bookmark-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%})%>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var flag = 0;
+        document.querySelector(".baby").addEventListener("click", ()=>{
+            if(flag === 0){
+                document.querySelector('#cretepost').classList.remove("hidden")
+                flag =1
+
+            }
+            else{
+                document.querySelector('#cretepost').classList.add("hidden")
+                flag =0
+            }
+        })
+    </script>
+</body>
+
+</html>

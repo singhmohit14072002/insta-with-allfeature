@@ -1,0 +1,314 @@
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+}
+
+body {
+  background: #fafafa;
+}
+
+.outer-container {
+  background: #fafafa;
+  margin: auto;
+  padding: -30px 0 15px;
+  width: 100%;
+  height: 90%;
+  min-height: 620px;
+}
+
+/* ------------------------------- */
+#ig-phone {
+  display: none;
+}
+
+/* ------------------------------- */
+#login-wrapper {
+  margin: 0 auto;
+  padding: 10px 30px 10px;
+}
+
+#logo {
+  padding: 8px 0 35px;
+}
+
+h1 {
+  text-align: center;
+  font-family: "Grand Hotel", cursive;
+  font-size: 3.1em;
+  font-weight: 200;
+}
+
+.input-field {
+  position: relative;
+}
+
+.input-field:nth-of-type(2) {
+  margin-top: 6px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 10px 8px;
+  font-size: 0.8rem;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  background: #fafafa;
+  outline: 0;
+}
+
+.placeholder {
+  position: absolute;
+  padding-left: 6px;
+  pointer-events: none;
+  transition: .2s ease all;
+  top: 10px;
+  left: 0;
+  font-family: 'Tahoma', sans-serif;
+  color: #8e8e8e;
+  font-size: 13px;
+}
+
+/* Input fields effect for fun */
+input:focus ~ .placeholder,
+input:not(:focus):valid ~ .placeholder {
+  top: 0;
+  left: 0;
+  font-size: 10px;
+}
+
+input[type="button"] {
+  margin-top: 15px;
+  padding: 7px;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #fff;
+  background: #afdcf9;
+  border: none;
+  border-radius: 3px;
+}
+
+/* -------------------------------- */
+#divider {
+  width: 100%;
+  margin: auto;
+}
+
+#divider div:is(#left, #center, #right) {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+#left,
+#right {
+  width: 38%;
+  height: 5px;
+  border: none;
+  border-top: 1px solid lightgray;
+}
+
+#center {
+  width: 20%;
+  color: grey;
+  font-family: "Verdana", sans-serif;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ----------------------------------- */
+#login-creds {
+  margin-top: 15px;
+  font-size: 0.875rem;
+}
+
+a {
+  font-family: "Tahoma", sans-serif;
+  color: #687ba2;
+  text-decoration: none;
+}
+
+#login-creds a {
+  display: block;
+  text-align: center;
+  line-height: 2.8;
+}
+
+#login-creds a:nth-of-type(1) {
+  font-weight: bold;
+}
+
+#login-creds a:nth-of-type(2) {
+  font-size: 0.775rem;
+}
+
+:is(input[type="button"],#app-buttons) {
+  cursor: pointer;
+}
+
+/* -------------------------------- */
+p {
+  text-align: center;
+  font-family: "Tahoma", sans-serif;
+  font-size: 0.875rem;
+}
+
+#no-acct {
+  margin-top: 35px;
+}
+
+#no-acct a {
+  color: #1b97f6;
+  font-weight: bold;
+}
+
+/* -------------------------------- */
+#app-buttons {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.buttons {
+  margin-top: 25px;
+}
+
+#app-buttons img:nth-of-type(1) {
+  margin-right: 5px;
+  width: 136px;
+}
+
+#app-buttons img:nth-of-type(2) {
+  margin-right: 5px;
+  width: 134.28px;
+}
+
+/* -------------------------------- */
+footer {
+  width: 100%;
+  padding-bottom: 10px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+:is(footer a, #copyright, #copyright p, select) {
+  color: gray;
+  font-size: 12px;
+}
+
+footer > div {
+  padding: 0 30px;
+}
+
+footer a {
+  display: inline;
+  margin: 0 5px;
+}
+
+#copyright {
+  margin: 15px auto 55px;
+  text-align: center;
+}
+
+select {
+  margin-right: 10px;
+  width: 22%;
+  max-width: 25%;
+  background: #fafafa;
+  border: none;
+}
+
+/* ------------ Media Queries ------------- */
+@media only screen and (min-width: 450px) {
+  body {
+    background: #fafafa;
+  }
+
+  .outer-container {
+    background: #fafafa;
+    margin: auto;
+    width: 450px;
+    height: 70%;
+    min-height: 350px;
+  }
+
+  :is(#login-wrapper, #no-acct) {
+    width: 350px;
+    border: 1px solid #dbdbdb;
+    background: #fff;
+  }
+
+  #login-wrapper {
+    margin: 35px auto 10px;
+    padding: 15px 35px 10px;
+  }
+
+  #no-acct {
+    margin: 0 auto;
+    padding-top: 20px;
+    height: 63px;
+  }
+
+  #app-buttons {
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  footer {
+    margin-top: 60px;
+  }
+
+  footer div:nth-of-type(1) {
+    padding: 0 10px;
+  }
+
+  footer a {
+    margin: 3px 7px;
+  }
+}
+
+@media only screen and (min-width: 875px) {
+  :is(#ig-phone, .outer-login-wrapper) {
+    display: inline-block;
+  }
+
+  .outer-container {
+    width: 100%;
+  }
+
+  .inner-container {
+    margin: 70px 0;
+    text-align: center;
+  }
+
+  #ig-phone {
+    margin-right: 30px;
+  }
+
+  #ig-phone img {
+    width: 320px;
+    height: 560px;
+  }
+
+  footer {
+    margin: auto;
+    display: block;
+  }
+
+  footer div:nth-of-type(2) {
+    width: 40%;
+  }
+
+  select {
+    width: 22%;
+  }
+}

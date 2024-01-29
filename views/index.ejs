@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+  <title>Login</title>
+</head>
+<body>
+  <div class="main w-full h-screen flex flex-col items-center justify-center ">
+    <div class="login-box w-96 mx-auto h-max-content border rounded-sm border-slate-300 flex flex-col items-center py-5">
+      <div class="log w-[200px] my-5 h-[60px]">
+        <img class="w-full h-full object cover" src="/images/download.png" alt="">
+      </div>
+      <div class="input w-80">
+        <form action="/login" method="post" class="flex flex-col gap-y-2">
+          <input type="text" name="username" placeholder="username" class="border rounded-[3px] py-[6px] px-[5px] text-sm">
+          <!-- <input type="text" name="name" placeholder="name" class="border rounded-[3px] py-[6px] px-[5px] text-sm">
+          <input type="email" name="email" placeholder="email" class="border rounded-[3px] py-[6px] px-[5px] text-sm"> -->
+          <input type="password" name="password" placeholder="password" class="border rounded-[3px] py-[6px] px-[5px] text-sm">
+          <input type="submit" class="font-semibold bg-sky-500 text-white text-bold mt-2 py-2 rounded" value="Sign up">
+        </form>
+      </div>
+      <div class="or mt-5 flex items-center gap-3 justify-center w-80 min-h-content">
+        <span class="w-32 h-px bg-slate-200" ></span>
+        <p class="font-normal text-gray-400">OR</p>
+        <span class="w-32 h-px bg-slate-200" ></span>
+      </div>
+      <div class="forget flex flex-col justify-center gap-1 ">
+        <div class="facebook flex items-center justify-center gap-1">
+          <i class="text-xl ri-facebook-box-fill text-sky-700 "></i>
+          <p class="font-semibold text-sky-700" >Log in with Facebook</p>
+        </div>
+        <p class="text-sm text-center">Forget password</p>
+      </div>
+    </div>
+    <div class="forget w-96 mx-auto h-[70px] mt-2 border rounded-sm border-slate-300 flex items-center justify-center">
+      <p>Don't have an account? <a class="text-sky-500 font-semibold" href="/signup">Sign up</a></p>
+    </div>
+  </div>
+</body>
+</html>
