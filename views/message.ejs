@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
     <style>
     </style>
-    <title>feed</title>
+    <title>Message</title>
 </head>
 
 
@@ -51,10 +51,10 @@
                 </a>
                 <a href="/message">
                     <div
-                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
-                    <i class="text-[28px] font-medium ri-chat-1-line"></i>
-                    <h3 class="text-lg font-normal">Message</h3>
-                </div>
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-chat-1-line"></i>
+                        <h3 class="text-lg font-normal">Message</h3>
+                    </div>
                 </a>
                 <a href="/notification">
                     <div
@@ -106,16 +106,37 @@
 
         </div>
         <div class="right ml-[25%] w-[75%]  flex py-2 px-2 py-3 gap-2 flex flex-col">
-            <h1 class="text-2xl dont-semibold">Search</h1>
-            <div class="searchdiv flex  flex-col px-2 mt-3">
-                <label for="searchInput">Enter username:</label>
-                <input class="bg-slate-100 outline-none mt-4 px-2 py-1 rounded-md" type="text" id="searchInput"
-                    placeholder="Enter username">
-                <button class="bg-blue-500 w-[100px] px-2 py-1 font-semibold rounded text-white mt-2"
-                    onclick="searchUser()">Search</button>
-            </div>
-            <div id="searcheduser" class="users px-2">
-                
+            <h1 class="font-semibold text-2xl">Chats to love One🥰💗</h1>
+            <div class="chatspart w-full h-[94%] flex gap-1">
+                <div class="leftusers w-[33%] h-full flex flex-col gap-1 ">
+
+                </div>
+                <div class="rounded-md hidden rightchats w-[77%] h-full bg-slate-100">
+                    <div class="whometochat w-full h-[70px] bg-slate-100 rounded-md flex items-center px-2">
+                        <div class="propfilepic w-[60px] h-[60px] bg-red-100 rounded-full">
+                            <img class="w-full h-full object-cover rounded-full" id="chatuserprofile" src="" alt="">
+                        </div>
+                        <div class="usernams ml-3">
+                            <h1 id="chatusername" class="font-semibold text-xl">shivam kumar shah</h1>
+                        </div>
+                    </div>
+                    <div class="chatareainsta w-full h-[80%] bg-slate-300 p-1 overflow-auto scrol-auto">
+                        <div class="bg-red-100 rounded-md flex flex-col ml-auto w-max px-2 py-1 bg-white  sender">
+                            hello from sender
+                        </div>
+                        <div class="bg-red-100 rounded-md flex flex-col w-max px-2 py-1 bg-white  reciver">
+                            hello from reciver
+                        </div>
+
+
+                    </div>
+                    <div class="inputpart flex w-full h-[8%]">
+                        <input id="msginput" class="w-[80%] bg-slate-100 outline-none" type="text">
+                        <button onclick="senderMessge()"
+                            class=" w-[20%] text-white text-xl font-semibold bg-blue-500">Send</button>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -133,86 +154,105 @@
                 flag = 0
             }
         })
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
 
-        console.log(document.querySelector("#searchinput").value);
+        var reciver = null
+        const sender = "<%=loggedinuser.username%>"
 
+        socket.emit("newUserJoine", "<%=loggedinuser.username%>")
 
-        let babylike = 0
-        function like(userid) {
-            if (babylike == 0) {
-                babylike = 1
-                document.querySelector(`#like${userid}`).classList.remove("text-red-100");
-                document.querySelector(`#like${userid}`).classList.add("text-red-600");
-                axios.get(`/like/${userid}`)
-                    .then(function (response) {
-                        document.querySelector(`#like${userid}`).textContent = response.data.likes.length;
-                        // console.log(response.data.likes.length);
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-            }
-            else {
-                document.querySelector(`#like${userid}`).classList.remove("text-red-600");
-                document.querySelector(`#like${userid}`).classList.add("text-red-100");
-                babylike = 0
-                axios.get(`/like/${userid}`)
-                    .then(function (response) {
-                        document.querySelector(`#like${userid}`).textContent = response.data.likes.length;
-                        // console.log(response.data.likes.length);
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-            }
+        socket.on("addonlineuser", data => {
+            showuser(data.name, data.profile)
+        })
+        socket.on("addonlineuserone", data => {
+            showuser(data.name, data.profile)
+        })
+
+        socket.on("recivermsg", msg=>{
+            recivemsg(msg)
+        })
+
+        function showuser(username, profile) {
+            var template = `<div onclick="setChatuser('${username}', '${profile}')" class="chats w-full h-[70px] bg-slate-400 rounded-lg flex items-center px-2 flex items-center">
+                        <div class="userp w-[60px] h-[60px] bg-slate-200 rounded-full">
+                            <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${profile}" alt="">
+                        </div>
+                        <h1 id="${username}" class="ml-2">${username}</h1>
+                    </div>`
+            document.querySelector(".leftusers").innerHTML += template
         }
 
-        function searceduser(username, userprofil, name){
-            // 
-            var template = `<div onclick="sendtoprofile()" class="user w-1/2 h-[70px] bg-slate-100 flex items-center px-3 rounded-md">
-                    <div class="profil w-[55px] h-[55px] bg-slate-200 rounded-full">
-                        <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${userprofil}" alt="">
-                    </div>
-                    <div class="userdets leading-none ml-3">
-                        <h1 class="text-xl">${username}</h1>
-                        <h1>${name}</h1>
-                    </div>
-                </div>`
-                document.querySelector("#searcheduser").innerHTML +=template
+        function setChatuser(username, profile) {
+            document.querySelector(".rightchats").classList.remove("hidden")
+            document.querySelector(`#chatusername`).innerHTML = username;
+            document.querySelector(`#chatuserprofile`).setAttribute("src", `/images/uploads/${profile}`)
+            console.log(username, profile);
+            reciver = username
 
-        }
-
-        function nouserfound(){
-            var template = `<div class="flex items-center justify-between">
-                <h1 class="text-4xl font-bold"> No User Found</h1>
-                </div>`
-                document.querySelector("#searcheduser").innerHTML +=template
-        }
-
-        function searchUser() {
-            const search = document.querySelector("#searchInput").value
-
-        
-            console.log(search);
-            axios.get(`/search/${search}`)
-            .then(function (response) {
-                // handle success
-                if(response.data.length==0){
-                    nouserfound()
-                }
-                response.data.forEach(singeldata=>{
-                    searceduser(singeldata.username, singeldata.profilepic, singeldata.name)
-                })
-                console.log(response.data);
+            socket.emit("getallchats",{
+                sender,
+                reciver
             })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
+
         }
 
+
+        function recivemsg(recivedmsg){
+            const template = `
+            <div class="bg-red-100 rounded-md flex flex-col w-max px-2 py-1 bg-white  reciver">
+                            ${recivedmsg}
+                        </div>
+
+            `
+            document.querySelector(".chatareainsta").innerHTML += template
+
+        }
+
+        function sendermsg(msg){
+            const template = `
+            <div class="bg-red-100 rounded-md flex flex-col ml-auto w-max px-2 py-1 bg-white  sender">
+                            ${msg}
+                        </div>
+            `
+
+            document.querySelector(".chatareainsta").innerHTML += template
+
+        }
+        function senderMessge() {
+
+            var sendermsg = document.querySelector("#msginput").value;
+            const template = `
+            <div class="bg-red-100 rounded-md flex flex-col ml-auto w-max px-2 py-1 bg-white  sender">
+                            ${sendermsg}
+                        </div>
+            `
+
+            document.querySelector(".chatareainsta").innerHTML += template
+
+            document.querySelector("#msginput").value = " "
+
+
+            const msgInfo = {
+                sendermsg,
+                sender,
+                reciver
+            }
+            // console.log(msgInfo);
+            socket.emit("privateMsg", msgInfo)
+        }
+
+       socket.on("allchats", allmsg=>{
+        allmsg.forEach(singlemsg=>{
+            if(singlemsg.sender === sender){
+                sendermsg(singlemsg.msg)
+            }else{
+                recivemsg(singlemsg.msg)
+            }
+        })
+       })
 
     </script>
 

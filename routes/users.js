@@ -35,7 +35,8 @@ var userSchema = mongoose.Schema({
   story:[{
     type: mongoose.Schema.Types.ObjectId,
     ref:"story"
-  }]
+  }],
+  socketId:String
 
 })
 userSchema.plugin(plm)

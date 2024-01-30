@@ -39,6 +39,12 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+usersRouter.find().then(async allUsers => {
+  await Promise.all(allUsers.map(async singleUser => {
+    singleUser.socketId = ""
+    await singleUser.save()
+  }))
+})
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

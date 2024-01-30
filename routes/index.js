@@ -291,6 +291,11 @@ router.get("/like/:userid", isLoggedIn, async function (req, res, next) {
   res.json(postlike)
 })
 
+
+router.get("/message", isLoggedIn, async function(req, res, next){
+   const loggedinuser = req.user
+  res.render("message", {loggedinuser})
+})
 // router.get("/dislike/:userid", isLoggedIn, async function (req, res, next) {
 
 //   const loggedinuser = req.user
