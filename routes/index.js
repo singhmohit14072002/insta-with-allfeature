@@ -6,12 +6,10 @@ var postModel = require("./posts");
 const passport = require('passport');
 const upload = require("./multer")
 const reelsModel = require("./reels")
-
-
-
 const users = require('./users');
 const multer = require('./multer');
 const localStratagy = require("passport-local");
+const storyModel = require('./story');
 passport.use(new localStratagy(userModel.authenticate()));
 
 /* GET home page. */
@@ -23,6 +21,31 @@ router.get('/search', isLoggedIn,  function (req, res, next) {
   const loggedinuser = req.user
   res.render('search', {loggedinuser});
 });
+
+router.get("/createstory", isLoggedIn , async function(req,res){
+  const loggedinuser = req.user
+
+  const userstory = await storyModel.find({userId:loggedinuser._id})
+  // console.log(userstory);
+
+  const alluser = await storyModel.find({userId:{$nin:[loggedinuser._id]}})
+  // console.log(alluser);
+  res.render("createstory", {loggedinuser})
+})
+
+router.post('/addstory', isLoggedIn, upload.single('babu'), async (req, res) => {
+  var loggedinUser = req.user
+  // console.log(req.file);
+  let story = await storyModel.create({
+    dp:loggedinUser.profilepic,
+    story:req.file.filename,
+    userId: req.user._id
+  })
+  loggedinUser.story.push(story._id)
+  await loggedinUser.save()
+  res.redirect("/home")
+});
+
 
 router.get("/search/:username", isLoggedIn, async function(req, res,next){
   const user = await userModel.find({username:req.params.username})
@@ -106,11 +129,11 @@ router.get("/logout", function (req, res, next) {
 router.get('/feed', isLoggedIn, async function (req, res, next) {
 
   const result = await postModel.aggregate(pipeline).exec();
-  console.log(result);
+  // console.log(result);
 
   const currentUser = await userModel.findById(req.user._id);
   const followingIds = currentUser.following;
-  console.log(req.user.isPrivate);
+  // console.log(req.user.isPrivate);
 
   const feed = await postModel.find({ userid: { $in: followingIds } })
     .populate('userid', 'username profilepic')
@@ -134,7 +157,7 @@ router.get('/notification', isLoggedIn, async function (req, res, next) {
 
 router.get("/unfollow/:unfollwingID", isLoggedIn, async function (req, res, next) {
   var loggedinUser = req.user
-  console.log(req.params.unfollwingID);
+  // console.log(req.params.unfollwingID);
   loggedinUser.following.remove(req.params.unfollwingID)
 
   var touser = await userModel.findById(req.params.unfollwingID)
@@ -184,7 +207,7 @@ router.get("/requested/:folowingID", isLoggedIn, async function (req, res, next)
   const loggedinUser = req.user
   var touser = await userModel.findById(req.params.folowingID)
   if (touser.requests.includes(loggedinUser._id)) {
-    console.log("id  mer a pass hai");
+    // console.log("id  mer a pass hai");
     touser.requests.remove(loggedinUser._id)
   }
   await touser.save()
@@ -199,7 +222,7 @@ router.get('/follow/:folowingID', isLoggedIn, async function (req, res, next) {
   var touser = await userModel.findById(req.params.folowingID)
 
   if (touser.requests.includes(loggedinUser._id)) {
-    console.log("hai mera passs user id");
+    // console.log("hai mera passs user id");
     return
   }
   else {
@@ -212,15 +235,16 @@ router.get('/follow/:folowingID', isLoggedIn, async function (req, res, next) {
 
 router.get('/home', isLoggedIn, async function (req, res, next) {
   var loggedinuser = req.user
-  let allUser = await userModel.find({ username: { $nin: [loggedinuser.username] } }).populate("posts")
+  let allUser = await userModel.find({ username: { $nin: [loggedinuser.username] } }).populate("posts", "story")
+
   const currentUserId = req.user._id; // Adjust this based on your authentication mechanism
 
   // Get the list of users whom the current user is following
-  console.log(currentUserId);
+  // console.log(currentUserId);
   const currentUser = await userModel.findById(currentUserId);
   const followingIds = currentUser.following;
 
-  console.log(followingIds);
+  // console.log(followingIds);
   // Get posts from users in the following list
   const posts = await postModel.find({ userid: { $in: followingIds } })
     .populate('userid', 'username profilepic') // Populate the 'user' field with the 'username' only
@@ -228,13 +252,20 @@ router.get('/home', isLoggedIn, async function (req, res, next) {
 
   // console.log(posts);
 
-  res.render('home', { allUser, loggedinuser, posts });
+
+  const userstory = await userModel.findOne({username:loggedinuser.username}).populate("story")
+  // console.log(userimg);
+
+  const alluserstory = await storyModel.find({userId:{$nin:[loggedinuser._id]}})
+  // console.log(alluserstory);
+
+  res.render('home', { allUser, loggedinuser, posts , userstory , alluserstory});
 });
 
 router.get('/profile', isLoggedIn, async function (req, res, next) {
   var user = await userModel.findOne({ username: req.session.passport.user }).populate("posts")
-  console.log(user.username);
-  console.log(user);
+  // console.log(user.username);
+  // console.log(user);
   await user.save();
   res.render('profile', { user });
 });
@@ -245,12 +276,12 @@ router.get('/reels', isLoggedIn, async function (req, res, next) {
   const currentUser = await userModel.findById(loggedinuser.id);
   const followingIds = currentUser.following;
 
-  console.log(followingIds);
+  // console.log(followingIds);
 
   const reels = await reelsModel.find({ userid: { $in: followingIds } })
     .populate('userid', 'username profilepic following')
 
-    console.log(reels);
+    // console.log(reels);
 
   // console.log(reels);
   res.render("reels", { reels, loggedinuser })
@@ -263,7 +294,7 @@ router.get('/editpage', isLoggedIn, async function (req, res, next) {
 
 router.post('/addreel', isLoggedIn, upload.single('video'), async (req, res) => {
   var loggedinUser = req.user
-  console.log(req.file);
+  // console.log(req.file);
   let reels = await reelsModel.create({
     title: req.body.title,
     description: req.body.description,
@@ -279,7 +310,7 @@ router.get("/like/:userid", isLoggedIn, async function (req, res, next) {
 
 
   const loggedinuser = req.user
-  console.log(req.params.userid);
+  // console.log(req.params.userid);
   const postlike = await postModel.findById(req.params.userid)
   if (postlike.likes.includes(loggedinuser._id)) {
     postlike.likes.remove(loggedinuser._id)

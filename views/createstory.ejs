@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+    <title>feed</title>
+</head>
+
+<body>
+    <div class="main w-full h-screen flex">
+        <div class="left w-[25%] h-screen fixed flex flex-col px-3 py-5 shadow-[0_20px_30px_-15px_rgba(0,0,0,0.3)]">
+            <div class="logo w-[50%] relative">
+                <img class="w-full h-full object-cover" src="/images/download.png" alt="">
+            </div>
+            <div class="links w-full mt-5 flex flex-col gap-1">
+                <a href="/home">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-home-5-line"></i>
+                        <h3 class="text-lg font-normal">Home</h3>
+                    </div>
+                </a>
+                <a href="/search">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-search-line"></i>
+                    <h3 class="text-lg font-normal">Search</h3>
+                </div>
+                </a>
+                <a href="/feed">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-compass-discover-line"></i>
+                        <h3 class="text-lg font-normal">Explore</h3>
+                    </div>
+                </a>
+                <a href="/reels">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-movie-2-line"></i>
+                        <h3 class="text-lg font-normal">Reels</h3>
+                    </div>
+                </a>
+                <a href="/message">
+                    <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-chat-1-line"></i>
+                    <h3 class="text-lg font-normal">Message</h3>
+                </div>
+                </a>
+                <div
+                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                    <i class="text-[28px] font-medium ri-heart-line"></i>
+                    <h3 class="text-lg font-normal">Notification</h3>
+                </div>
+                <div class="baby">
+                    <div id="crete"
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-add-box-line"></i>
+                        <h3 class="text-lg font-normal">Create</h3>
+                    </div>
+                    <div id="cretepost"
+                        class="hidden h-[60px] w-[120px] bg-slate-100 absolute flex rounded-md flex-col gap-1 transition-all">
+                        <div
+                            class="post w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createpost">Create Post</a>
+                        </div>
+                        <div
+                            class="reels w-full h-1/2 flex items-center gap-2 pl-3 rounded-md hover:bg-slate-100 transition-all">
+                            <a href="/createreels">Create Reels</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/logout">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-logout-box-line"></i>
+                        <h3 class="text-lg font-normal">Logout</h3>
+                    </div>
+                </a>
+                <a href="/profile" class="py-1">
+                    <div
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
+                        <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
+                            <img src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                        </div>
+                        <h3 class="text-lg font-normal">Profile</h3>
+                    </div>
+                </a>
+            </div>
+            <div
+                class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all mt-14">
+                <i class="text-[28px] font-medium ri-menu-line"></i>
+                <h3 class="text-lg font-normal">Create</h3>
+            </div>
+
+        </div>
+        <div class="right ml-[25%] w-[75%] h-[200vh] p-3">
+            <div class="postimg full text-center">
+                <div class="postimg w-1/4 text-center mx-auto h-[350px]  relative">
+                    <div id='videoContainer' class="videodiv w-full rounded-md h-full bg-gray-100  relative flex items-center justify-center">
+                        <img class="" src="https://static.thenounproject.com/png/4512655-200.png" alt="">
+
+                    </div>
+                    <button class="bg-blue-400 text-white px-3 py-1 rounded-md btn mt-2">Add Reel</button>
+                </div>
+
+
+                <form id="submitform" class="w-1/2 mx-auto flex flex-col gap-1 mt-10 items-center" action="/addstory"
+                method="post" enctype="multipart/form-data">
+
+                <input hidden type="file" id="mediaInput" name="babu" accept="image/*, video/*" onchange="checkMediaType()">
+                    <!-- <input hidden type="text" id="mediaInput" name="mediaInput" type="file"> -->
+                    <button  class="bg-blue-400 text-white px-3 py-1 rounded mt-2" type="submit"
+                    value="Create Post" type="submit" >submit</button>
+                </form>
+
+                <!-- <form id="submitform" class="w-1/2 mx-auto flex flex-col gap-1 mt-10 items-center" action="/addreel"
+                    method="post" enctype="multipart/form-data">
+                    <inputid="videoInput" type="file" name="video" onchange="">
+                    <h2 class="my-2">Post description</h2>
+
+                    <input class="w-full bg-slate-100 outline-0 rounded py-1 px-2" type="text" name="title"
+                        placeholder="Title">
+                    <textarea class="bg-slate-100 outline-0 rounded px-2 py-1" name="description" id="" cols="59"
+                        rows="3" placeholder="Description"></textarea>
+                    <input class="bg-blue-400 text-white px-3 py-1 rounded btn mt-2" type="submit"
+                        value="Create Post">
+                </form> -->
+
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector(".btn").addEventListener("click", () => {
+            document.querySelector("#mediaInput").click();
+        })
+
+        var flag = 0;
+        document.querySelector(".baby").addEventListener("click", () => {
+            if (flag === 0) {
+                document.querySelector('#cretepost').classList.remove("hidden")
+                flag = 1
+            }
+            else {
+                document.querySelector('#cretepost').classList.add("hidden")
+                flag = 0
+            }
+        })
+
+
+        const postdis = document.getElementById('postdis');
+        const fileInput = document.getElementById('mediaInput');
+        const preview = document.getElementById('videoContainer');
+        let blobURL;
+
+        function handleVideoUpload() {
+            const videoInput = document.getElementById('mediaInput');
+            if (videoInput.files.length > 0) {
+                const videoFile = videoInput.files[0];
+                blobURL = URL.createObjectURL(videoFile);
+            }
+            loadVideo()
+        }
+
+        function loadVideo() {
+            const videoContainer = document.getElementById('videoContainer');
+
+            if (blobURL) {
+                // Create an HTML string with the video element
+                const videoHTML = `<video class="w-full h-full object-cover absolute" controls src="${blobURL}"></video>`;
+
+                // Set the HTML string as the innerHTML of the container
+                videoContainer.innerHTML = videoHTML;
+            } else {
+                alert('Please upload a video first.');
+            }
+        }
+
+        function previewImage() {
+            
+
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    console.log(e.target);
+                    preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-contain absolute" >`;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                preview.innerHTML = '';
+            }
+            document.getElementById('imageinput').addEventListener('change', previewImage);
+        }
+        
+
+
+        function checkMediaType() {
+            // Get the input value
+            var inputValue = document.getElementById("mediaInput").value;
+
+            // Check if the input value is a video URL
+            if (inputValue.match(/\.(mp4|avi|mkv|mov|flv)$/)) {
+                alert("You entered a video URL!");
+                handleVideoUpload()
+            }
+            // Check if the input value is an image URL
+            else if (inputValue.match(/\.(jpeg|jpg|gif|png)$/)) {
+                alert("You entered an image URL!");
+                previewImage()
+                
+            }
+            // If neither video nor image
+            else {
+                alert("Invalid media type or unsupported format!");
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

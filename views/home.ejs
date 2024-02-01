@@ -15,6 +15,12 @@
 
 
 <body>
+    <div class="storyarea w-full h-screen bg-gradient-to-b from-black  absolute z-10 hidden flex items-center justify-center">
+        <div class=" w-[350px] h-[500px] bg-red-400 m-auto relative ">
+            <i class="ri-close-line absolute font-bold text-white text-4xl left-[400px] top-[-10px]" onclick="closeStory()"></i>
+            <img class="w-full h-full object-cover" id="storyimg" src="" alt="">
+        </div>
+    </div>
     <div class="main w-full h-screen flex">
         <div class="left w-[25%] h-screen fixed flex flex-col px-3 py-5 shadow-[0_20px_30px_-15px_rgba(0,0,0,0.3)]">
             <div class="logo w-[50%] relative">
@@ -108,16 +114,24 @@
         <div class="right ml-[25%] w-[75%]  flex py-2 px-2 gap-2">
 
             <div class="left w-[65%] h-screen ">
-                <div class="stories flex pt-2 gap-2 ">
-                    <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1">
+                <div class="stories flex pt-2 gap-2  relative">
+                   <a href="/createstory"> <i class="ri-add-circle-line bg-blue-600 text-white px-1 absolute left-[60px] top-[60px] rounded-full"></i></a>
+
+                    <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-1" onclick='userdets("<%=loggedinuser.story%>")'>
                         <img class="w-full h-full object-cover rounded-full"
-                            src="https://images.unsplash.com/photo-1497752531616-c3afd9760a11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGN1dGUlMjBhbmltYWx8ZW58MHx8MHx8fDA%3D"
+                            src="/images/uploads/<%=loggedinuser.profilepic%>"
                             alt="">
                     </div>
-                    <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1">
-                        <img class="w-full h-full object-cover rounded-full"
-                            src="https://images.unsplash.com/photo-1497752531616-c3afd9760a11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGN1dGUlMjBhbmltYWx8ZW58MHx8MHx8fDA%3D"
-                            alt="">
+                    <div class="usersstory flex overflow-auto scrol-auto">
+
+                        <%alluserstory.forEach(story=>{%>
+                            <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1 bg-gradient-to-r from-purple-500 to-pink-500"  onclick='userdets("<%=story.story%>")'>
+                                <img class="w-full h-full object-cover rounded-full"
+                                    src="/images/uploads/<%=story.dp%>"
+                                    alt="">
+                            </div>
+                        <%})%>
+                       
                     </div>
 
                 </div>
@@ -277,12 +291,30 @@
                 })
         }
 
+        let timeout
         
+        function userdets(value){
+
+            document.querySelector(".storyarea").classList.remove("hidden")
+            if(!value){
+                document.querySelector("#storyimg").setAttribute("src", "https://static-prod.adweek.com/wp-content/uploads/2018/02/Instagram-Stories-Tap-to-Type-546x1024.png")
+            }else{
+                document.querySelector("#storyimg").setAttribute("src", "/images/uploads/"+value)
+            }
+
+           timeout = setTimeout(()=>{
+                document.querySelector(".storyarea").classList.add("hidden")
+            },3000)
+        }
 
 
-
+         function closeStory(){
+            clearTimeout(timeout)
+            document.querySelector(".storyarea").classList.add("hidden")
+         }
 
     </script>
+
 
 </body>
 
