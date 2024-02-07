@@ -1,8 +1,9 @@
 const mongoose = require("mongoose")
 const plm = require("passport-local-mongoose")
 
-mongoose.connect("mongodb://127.0.0.1:27017/instagramOriginal")
+// mongoose.connect("mongodb://127.0.0.1:27017/instagramOriginal")
 
+mongoose.connect("mongodb+srv://shivamshah1210:FrniPY5T4jf3PMww@cluster0.e0emzlh.mongodb.net/?retryWrites=true&w=majority")
 
 var userSchema = mongoose.Schema({
   username: String,

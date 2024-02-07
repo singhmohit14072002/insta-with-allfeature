@@ -92,7 +92,7 @@
                     <div
                         class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
                         <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
-                            <img src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                            <img src="<%=loggedinuser.profilepic%>" alt="">
                         </div>
                         <h3 class="text-lg font-normal">Profile</h3>
                     </div>
@@ -178,7 +178,7 @@
         function showuser(username, profile) {
             var template = `<div onclick="setChatuser('${username}', '${profile}')" class="chats w-full h-[70px] bg-slate-400 rounded-lg flex items-center px-2 flex items-center">
                         <div class="userp w-[60px] h-[60px] bg-slate-200 rounded-full">
-                            <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${profile}" alt="">
+                            <img class="w-full h-full object-cover rounded-full" src="${profile}" alt="">
                         </div>
                         <h1 id="${username}" class="ml-2">${username}</h1>
                     </div>`
@@ -188,7 +188,7 @@
         function setChatuser(username, profile) {
             document.querySelector(".rightchats").classList.remove("hidden")
             document.querySelector(`#chatusername`).innerHTML = username;
-            document.querySelector(`#chatuserprofile`).setAttribute("src", `/images/uploads/${profile}`)
+            document.querySelector(`#chatuserprofile`).setAttribute("src", `${profile}`)
             console.log(username, profile);
             reciver = username
 

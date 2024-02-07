@@ -85,7 +85,7 @@
                     <div
                         class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
                         <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
-                            <img src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                            <img src="<%=loggedinuser.profilepic%>" alt="">
                         </div>
                         <h3 class="text-lg font-normal">Profile</h3>
                     </div>
@@ -103,7 +103,7 @@
                 <%result.forEach(function(dets){%>
                     <div class="post w-[238px] h-[238px] bg-slate-100 relative">
                         <img class="w-full h-full object-cover"
-                            src="/images/uploads/<%=dets.postPic%>"
+                            src="<%=dets.postPic%>"
                             alt="">
                         <div
                             class="overlay flex items-center gap-5 justify-center w-full h-full  opacity-0 absolute top-0 hover:opacity-100 bg-gray-500/50 duration-150">

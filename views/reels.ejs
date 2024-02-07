@@ -84,7 +84,7 @@
                     <div
                         class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
                         <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
-                            <img src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                            <img src="<%=loggedinuser.profilepic%>" alt="">
                         </div>
                         <h3 class="text-lg font-normal">Profile</h3>
                     </div>
@@ -103,11 +103,11 @@
                     
                
                 <div class="reel h-screen border-2 bg-black relative rounded-lg text-white ">
-                    <video class="w-ful h-full obejct-cover" autoplay muted loop src="/images/uploads/<%=singlereel.path%>" ></video>
+                    <video class="w-ful h-full obejct-cover" autoplay muted loop src="<%=singlereel.path%>" ></video>
                     <div class="user absolute bottom-0 bg-gradient-to-t from-black to-transparent ">
                         <div class="profile flex items-center gap-2 pl-3">
                             <div class="img w-10 h-10 bg-red-400 rounded-full">
-                                <img class="w-full h-full obejct-cover" src="/images/uploads/<%=singlereel.userid.profilepic%>" alt="">
+                                <img class="w-full h-full obejct-cover" src="<%=singlereel.userid.profilepic%>" alt="">
                             </div>
                             <h1 class="text-white"><%=singlereel.userid.username%></h1>
                             <%if(loggedinuser.following.includes(singlereel.userid._id)){%>

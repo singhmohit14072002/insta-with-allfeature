@@ -88,7 +88,7 @@
                     <div
                         class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
                         <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
-                            <img src="/images/uploads/<%=user.profilepic%>" alt="">
+                            <img src="<%=user.profilepic%>" alt="">
                         </div>
                         <h3 class="text-lg font-normal">Profile</h3>
                     </div>
@@ -105,7 +105,7 @@
             <div class="post w-2/3 mx-auto h-[150vh]">
                 <div class="part1 w-full flex gap-3 px-8 py-3 ">
                     <div class="picture rounded-full w-[100px] h-[100px] bg-red-100">
-                        <img class="w-full h-full rounded-full object-cover" src="/images/uploads/<%=user.profilepic%>" alt="">
+                        <img class="w-full h-full rounded-full object-cover" src="<%=user.profilepic%>" alt="">
                     </div>
                     <div class="profile-data">
                         <div class="edit flex gap-20">
@@ -156,7 +156,7 @@
                     <%user.posts.forEach(function(dets){%>
                         <div class="post w-[190px] h-[190px] bg-slate-300 " >
                             <a href="">
-                                <img class="w-full h-full object-cover" src="/images/uploads/<%=dets.postPic%>" alt="">
+                                <img class="w-full h-full object-cover" src="<%=dets.postPic%>" alt="">
                             </a>
                         </div>
                     <%})%>

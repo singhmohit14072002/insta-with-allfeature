@@ -88,7 +88,7 @@
                     <div
                         class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
                         <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
-                            <img src='/images/uploads/<%=loggeedinUser.profilepic%>' alt="Uploaded" />
+                            <img src='<%=loggeedinUser.profilepic%>' alt="Uploaded" />
                         </div>
                         <h3 class="text-lg font-normal">Profile</h3>
                     </div>
@@ -111,7 +111,6 @@
                     
 
                     </div>
-                    <button class="bg-blue-400 text-white px-3 py-1 rounded-md btn mt-2">Add Reel</button>
                 </div>
 
                 <form onSubmit={this.onFormSubmit} id="submitform"

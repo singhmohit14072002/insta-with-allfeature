@@ -18,7 +18,8 @@ app.set('view engine', 'ejs');
 app.use(expressSession({
   resave:false,
   saveUninitialized:true,
-  secret:"kdjaskd"
+  secret:"kdjaskd",
+  cookie: { maxAge: 100*1000 },
 }));
 app.use(passport.initialize());
 app.use(passport.session());

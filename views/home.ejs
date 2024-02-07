@@ -15,9 +15,11 @@
 
 
 <body>
-    <div class="storyarea w-full h-screen bg-gradient-to-b from-black  absolute z-10 hidden flex items-center justify-center">
+    <div
+        class="storyarea w-full h-screen bg-gradient-to-b from-black  absolute z-10 hidden flex items-center justify-center">
         <div class=" w-[350px] h-[500px] bg-red-400 m-auto relative ">
-            <i class="ri-close-line absolute font-bold text-white text-4xl left-[400px] top-[-10px]" onclick="closeStory()"></i>
+            <i class="ri-close-line absolute font-bold text-white text-4xl left-[400px] top-[-10px]"
+                onclick="closeStory()"></i>
             <img class="w-full h-full object-cover" id="storyimg" src="" alt="">
         </div>
     </div>
@@ -57,10 +59,10 @@
                 </a>
                 <a href="/message">
                     <div
-                    class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
-                    <i class="text-[28px] font-medium ri-chat-1-line"></i>
-                    <h3 class="text-lg font-normal">Message</h3>
-                </div>
+                        class="tabs flex pl-1 items-center py-[2px] gap-3  h-11d w-full rounded-md hover:bg-slate-100 transition-all">
+                        <i class="text-[28px] font-medium ri-chat-1-line"></i>
+                        <h3 class="text-lg font-normal">Message</h3>
+                    </div>
                 </a>
                 <a href="/notification">
                     <div
@@ -98,7 +100,7 @@
                     <div
                         class="tabs flex pl-1 items-center py-[2px] gap-3  h-11 w-full rounded-md hover:bg-slate-100 transition-all">
                         <div class="profile w-7 h-7 bg-red-500 rounded-full truncate">
-                            <img src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                            <img src="<%=loggedinuser.profilepic%>" alt="">
                         </div>
                         <h3 class="text-lg font-normal">Profile</h3>
                     </div>
@@ -115,35 +117,36 @@
 
             <div class="left w-[65%] h-screen ">
                 <div class="stories flex pt-2 gap-2  relative">
-                   <a href="/createstory"> <i class="ri-add-circle-line bg-blue-600 text-white px-1 absolute left-[60px] top-[60px] rounded-full"></i></a>
+                    <a href="/createstory"> <i
+                            class="ri-add-circle-line bg-blue-600 text-white px-1 absolute left-[60px] top-[60px] rounded-full"></i></a>
 
-                    <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-1" onclick='userdets("<%=loggedinuser.story%>")'>
+                    <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-1"
+                        onclick='userdets("<%=loggedinuser.story%>")'>
                         <img class="w-full h-full object-cover rounded-full"
-                            src="/images/uploads/<%=loggedinuser.profilepic%>"
-                            alt="">
+                            src="<%=loggedinuser.profilepic%>" alt="">
                     </div>
                     <div class="usersstory flex overflow-auto scrol-auto">
 
                         <%alluserstory.forEach(story=>{%>
-                            <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1 bg-gradient-to-r from-purple-500 to-pink-500"  onclick='userdets("<%=story.story%>")'>
-                                <img class="w-full h-full object-cover rounded-full"
-                                    src="/images/uploads/<%=story.dp%>"
+                            <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1 bg-gradient-to-r from-purple-500 to-pink-500"
+                                onclick='userdets("<%=story.story%>")'>
+                                <img class="w-full h-full object-cover rounded-full" src="<%=story.dp%>"
                                     alt="">
                             </div>
-                        <%})%>
-                       
+                            <%})%>
+
                     </div>
 
                 </div>
                 <div class="followingpost w-[400px] mx-auto min-h-max flex flex-col gap-2 pt-3">
                     <%posts.forEach(singlepost=>{ %>
 
-                        <div class="post w-full h-[90vh]  bg-slate-100 ">
+                        <div class="post w-full h-max-h  bg-slate-100 ">
                             <div class="username w-full p-2 flex gap-2 items-center justify-between">
                                 <div class="p flex gap-2 items-center">
                                     <div class="profile w-10 bg-sky-300 h-10 rounded-full">
                                         <img class="w-full h-full object-cover rounded-full"
-                                            src="/images/uploads/<%=singlepost.userid.profilepic%>" alt="">
+                                            src="<%=singlepost.userid.profilepic%>" alt="">
                                     </div>
                                     <h1>
                                         <%=singlepost.userid.username%>
@@ -152,8 +155,8 @@
                                 <i class="ri-more-fill"></i>
                             </div>
 
-                            <div class="post w-full h-[70%]">
-                                <img class="w-full h-full object-cover" src="/images/uploads/<%=singlepost.postPic%>"
+                            <div class="post w-full h-[400px]">
+                                <img class="w-full h-full object-cover" src="<%=singlepost.postPic%>"
                                     alt="pic">
                             </div>
                             <div class="like flex items-center justify-between p-1 text-2xl">
@@ -165,8 +168,8 @@
                                         </i></button> -->
 
                                     <%if(!singlepost.likes.includes(loggedinuser._id)){%>
-                                        <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i id="like<%=singlepost._id%>"
-                                                class="ri-heart-fill text-red-100">
+                                        <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
+                                                id="like<%=singlepost._id%>" class="ri-heart-fill text-red-100">
                                                 <%=singlepost.likes.length%>
                                             </i></button>
                                         <%}else{%>
@@ -180,8 +183,8 @@
 
 
 
-                                    <i class="ri-chat-1-line"></i>
-                                    <i class="ri-send-plane-line"></i>
+                                                <i id="commentarea" class="ri-chat-1-line"></i>
+                                                <i class="ri-send-plane-line"></i>
                                 </div>
                                 <i class="ri-bookmark-line"></i>
                             </div>
@@ -189,6 +192,18 @@
                                 <p>
                                     <%=singlepost.postText%><a class="font-bold" href=""></a> <br> time <br>
                                 </p>
+                            </div>
+                            <div class="commentArea w-full h-max-h px-3 flex flex-col gap-1 pb-2">
+                                <h1>Add comment</h1>
+                                <div class="inputcomment flex">
+                                    <input id="comment<%=singlepost._id%>" class=" w-[80%] rounded-full py-1 pl-2" type="text" name="raju"
+                                        placeholder="Add a comment..."  />
+                                    <button onclick="sendComment('<%=singlepost._id%>')" class="bg-blue-500 rounded-full text-sm text-white w-[20%]">comment</button>
+                                </div>
+                                <div class="comment bg-white rounded-md flex justify-between px-2 ">
+                                    tumharibody achi hai
+                                    <div class="reply"><i class="ri-reply-line"></i></div>
+                                </div>
                             </div>
                         </div>
                         <%})%>
@@ -199,7 +214,7 @@
                     <div class="profile-img flex items-center gap-2">
                         <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
                             <img class="w-full h-full object-cover rounded-full"
-                                src="/images/uploads/<%=loggedinuser.profilepic%>" alt="">
+                                src="<%=loggedinuser.profilepic%>" alt="">
                         </div>
                         <div class="details leading-[20px]">
                             <h1>
@@ -221,7 +236,7 @@
                                 <div class="profile-img flex items-center gap-2">
                                     <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
                                         <img class="w-full h-full object-cover rounded-full"
-                                            src="/images/uploads/<%=singleuser.profilepic%>" alt="">
+                                            src="<%=singleuser.profilepic%>" alt="">
                                     </div>
                                     <div class="details leading-[20px]">
                                         <h1>
@@ -274,11 +289,11 @@
             axios.get(`/like/${userid}`)
                 .then(function (response) {
                     // console.log(response.data);
-                    if(response.data.likes.includes(loginuser)){
+                    if (response.data.likes.includes(loginuser)) {
                         document.querySelector(`#like${userid}`).classList.remove("text-red-100")
                         document.querySelector(`#like${userid}`).classList.add("text-red-600")
                         document.querySelector(`#like${userid}`).innerHTML = response.data.likes.length
-                    }else{
+                    } else {
                         document.querySelector(`#like${userid}`).classList.remove("text-red-600")
                         document.querySelector(`#like${userid}`).classList.add("text-red-100")
                         document.querySelector(`#like${userid}`).innerHTML = response.data.likes.length
@@ -292,26 +307,32 @@
         }
 
         let timeout
-        
-        function userdets(value){
+
+        function userdets(value) {
 
             document.querySelector(".storyarea").classList.remove("hidden")
-            if(!value){
+            if (!value) {
                 document.querySelector("#storyimg").setAttribute("src", "https://static-prod.adweek.com/wp-content/uploads/2018/02/Instagram-Stories-Tap-to-Type-546x1024.png")
-            }else{
-                document.querySelector("#storyimg").setAttribute("src", "/images/uploads/"+value)
+            } else {
+                document.querySelector("#storyimg").setAttribute("src", "" + value)
             }
 
-           timeout = setTimeout(()=>{
+            timeout = setTimeout(() => {
                 document.querySelector(".storyarea").classList.add("hidden")
-            },3000)
+            }, 3000)
         }
 
 
-         function closeStory(){
+        function closeStory() {
             clearTimeout(timeout)
             document.querySelector(".storyarea").classList.add("hidden")
-         }
+        }
+
+        function sendComment(poostkiid){
+            console.log(`comment${poostkiid}`);
+            const cmnt = document.querySelector(`#comment${poostkiid}`)
+            console.log(document.querySelector(`#comment${poostkiid}`).value);
+        }
 
     </script>
 

@@ -10,6 +10,13 @@ const users = require('./users');
 const multer = require('./multer');
 const localStratagy = require("passport-local");
 const storyModel = require('./story');
+var ImageKit = require("imagekit");
+const fs = require("fs")
+var imagekit = new ImageKit({
+  publicKey: "publ21mpeGsUXktNLeztVPMSMy7w1w=ic_v",
+  privateKey: "private_chfo2+sM1rnwp3sjVefYNrj7ccY=",
+  urlEndpoint: "https://ik.imagekit.io/gunj6f9gb"
+});
 passport.use(new localStratagy(userModel.authenticate()));
 
 /* GET home page. */
@@ -17,28 +24,28 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/search', isLoggedIn,  function (req, res, next) {
+router.get('/search', isLoggedIn, function (req, res, next) {
   const loggedinuser = req.user
-  res.render('search', {loggedinuser});
+  res.render('search', { loggedinuser });
 });
 
-router.get("/createstory", isLoggedIn , async function(req,res){
+router.get("/createstory", isLoggedIn, async function (req, res) {
   const loggedinuser = req.user
 
-  const userstory = await storyModel.find({userId:loggedinuser._id})
+  const userstory = await storyModel.find({ userId: loggedinuser._id })
   // console.log(userstory);
 
-  const alluser = await storyModel.find({userId:{$nin:[loggedinuser._id]}})
+  const alluser = await storyModel.find({ userId: { $nin: [loggedinuser._id] } })
   // console.log(alluser);
-  res.render("createstory", {loggedinuser})
+  res.render("createstory", { loggedinuser })
 })
 
 router.post('/addstory', isLoggedIn, upload.single('babu'), async (req, res) => {
   var loggedinUser = req.user
   // console.log(req.file);
   let story = await storyModel.create({
-    dp:loggedinUser.profilepic,
-    story:req.file.filename,
+    dp: loggedinUser.profilepic,
+    story: req.file.filename,
     userId: req.user._id
   })
   loggedinUser.story.push(story._id)
@@ -47,8 +54,8 @@ router.post('/addstory', isLoggedIn, upload.single('babu'), async (req, res) => 
 });
 
 
-router.get("/search/:username", isLoggedIn, async function(req, res,next){
-  const user = await userModel.find({username:req.params.username})
+router.get("/search/:username", isLoggedIn, async function (req, res, next) {
+  const user = await userModel.find({ username: req.params.username })
   res.json(user)
 })
 
@@ -72,10 +79,26 @@ router.get('/createpost', isLoggedIn, async function (req, res, next) {
 });
 
 router.post('/editpic', isLoggedIn, upload.single('imge'), async function (req, res) {
-  var user = await userModel.findOne({ username: req.session.passport.user })
-  user.profilepic = req.file.filename
-  // console.log(req.file, req.body)
-  await user.save();
+  var user = await userModel.findOne({username:req.session.passport.user})
+  
+  fs.readFile(req.file.path, function (err, data) {
+    // console.log(data);
+    if (err) throw err; // Fail if the file can't be read.
+    imagekit.upload({
+      file: data, //required
+      fileName: req.file.filename, //required
+      tags: ["tag1", "tag2"]
+    },async function (error, result) {
+      if (error) console.log(error);
+      else {
+        var users = await userModel.findOneAndUpdate({username:req.session.passport.user},{profilepic:result.url})
+        
+      };
+    });
+
+   
+  });
+  await user.save()
   res.render("editpage", { user })
 });
 
@@ -90,15 +113,33 @@ router.post("/editbioname", isLoggedIn, async function (req, res, next) {
 
 router.post('/addpostimg', isLoggedIn, upload.single('imge'), async function (req, res) {
   var user = await userModel.findOne({ username: req.session.passport.user })
-  var postimg = await postModel.create({
-    postPic: req.file.filename,
-    postText: req.body.description,
-    userid: user._id
-  })
+  var newurl;
+  fs.readFile(req.file.path, function (err, data) {
+    if (err) throw err; 
+    imagekit.upload({
+      file: data, //required
+      fileName: req.file.filename, //required
+      tags: ["tag1", "tag2"]
+    }, async function (error, result) {
+      if (error) console.log(error);
+      else {
+        var postimg = await postModel.create({
+          postPic: result.url,
+          postText: req.body.description,
+          userid: user._id
+        })
+        user.posts.push(postimg._id);
+        await user.save();
+
+      };
+    });
+    // console.log(imageURL);
+  });
+  console.log(newurl);
+
 
   // var detail = await postModel.findOne({})
-  user.posts.push(postimg._id);
-  await user.save();
+
   res.redirect("/profile")
 });
 
@@ -138,7 +179,7 @@ router.get('/feed', isLoggedIn, async function (req, res, next) {
   const feed = await postModel.find({ userid: { $in: followingIds } })
     .populate('userid', 'username profilepic')
   // console.log(feed);
-  res.render('feed', { feed, loggedinuser: req.user ,result});
+  res.render('feed', { feed, loggedinuser: req.user, result });
 });
 
 router.get('/createreels', isLoggedIn, async function (req, res, next) {
@@ -253,13 +294,13 @@ router.get('/home', isLoggedIn, async function (req, res, next) {
   // console.log(posts);
 
 
-  const userstory = await userModel.findOne({username:loggedinuser.username}).populate("story")
+  const userstory = await userModel.findOne({ username: loggedinuser.username }).populate("story")
   // console.log(userimg);
 
-  const alluserstory = await storyModel.find({userId:{$nin:[loggedinuser._id]}})
+  const alluserstory = await storyModel.find({ userId: { $nin: [loggedinuser._id] } })
   // console.log(alluserstory);
 
-  res.render('home', { allUser, loggedinuser, posts , userstory , alluserstory});
+  res.render('home', { allUser, loggedinuser, posts, userstory, alluserstory });
 });
 
 router.get('/profile', isLoggedIn, async function (req, res, next) {
@@ -281,7 +322,7 @@ router.get('/reels', isLoggedIn, async function (req, res, next) {
   const reels = await reelsModel.find({ userid: { $in: followingIds } })
     .populate('userid', 'username profilepic following')
 
-    // console.log(reels);
+  // console.log(reels);
 
   // console.log(reels);
   res.render("reels", { reels, loggedinuser })
@@ -295,14 +336,29 @@ router.get('/editpage', isLoggedIn, async function (req, res, next) {
 router.post('/addreel', isLoggedIn, upload.single('video'), async (req, res) => {
   var loggedinUser = req.user
   // console.log(req.file);
-  let reels = await reelsModel.create({
-    title: req.body.title,
-    description: req.body.description,
-    path: req.file.filename,
-    userid: req.user._id
-  })
-  loggedinUser.reels.push(reels._id)
-  await loggedinUser.save()
+  fs.readFile(req.file.path, function (err, data) {
+    if (err) throw err; 
+    imagekit.upload({
+      file: data, //required
+      fileName: req.file.filename, //required
+      tags: ["tag1", "tag2"]
+    }, async function (error, result) {
+      if (error) console.log(error);
+      else {
+        let reels = await reelsModel.create({
+          title: req.body.title,
+          description: req.body.description,
+          path: result.url,
+          userid: req.user._id
+        })
+        loggedinUser.reels.push(reels._id)
+        await loggedinUser.save()
+
+      };
+    });
+    // console.log(imageURL);
+  });
+  
   res.redirect("/profile")
 });
 
@@ -314,18 +370,18 @@ router.get("/like/:userid", isLoggedIn, async function (req, res, next) {
   const postlike = await postModel.findById(req.params.userid)
   if (postlike.likes.includes(loggedinuser._id)) {
     postlike.likes.remove(loggedinuser._id)
-  }else{
+  } else {
     postlike.likes.push(loggedinuser._id)
   }
-  
+
   await postlike.save();
   res.json(postlike)
 })
 
 
-router.get("/message", isLoggedIn, async function(req, res, next){
-   const loggedinuser = req.user
-  res.render("message", {loggedinuser})
+router.get("/message", isLoggedIn, async function (req, res, next) {
+  const loggedinuser = req.user
+  res.render("message", { loggedinuser })
 })
 // router.get("/dislike/:userid", isLoggedIn, async function (req, res, next) {
 
@@ -333,7 +389,7 @@ router.get("/message", isLoggedIn, async function(req, res, next){
 //   console.log(req.params.userid);
 //   const postlike = await postModel.findById(req.params.userid)
 //   if (!postlike.likes.includes(loggedinuser._id)) return res.redirect("/home")
-  
+
 //   await postlike.save();
 //   res.redirect("/home")
 
@@ -365,7 +421,7 @@ const pipeline = [
   },
   {
     $match: {
-      'user.isPrivate': { $ne: true}
+      'user.isPrivate': { $ne: true }
     }
   },
   {
@@ -378,9 +434,9 @@ const pipeline = [
       likes: 1,
     }
   },
- 
+
   {
-    $sample: { size: 10 } 
+    $sample: { size: 10 }
   }
 ];
 
