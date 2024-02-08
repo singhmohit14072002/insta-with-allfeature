@@ -3,15 +3,20 @@ var router = express.Router();
 const axios = require('axios');
 var userModel = require("./users");
 var postModel = require("./posts");
+const storyModel = require('./story');
+const reelsModel = require("./reels")
+const msgModel = require("./messages")
 const passport = require('passport');
 const upload = require("./multer")
-const reelsModel = require("./reels")
 const users = require('./users');
+const commentModel = require("./comment")
+
 const multer = require('./multer');
 const localStratagy = require("passport-local");
-const storyModel = require('./story');
 var ImageKit = require("imagekit");
-const fs = require("fs")
+
+const fs = require("fs");
+const { log } = require('console');
 var imagekit = new ImageKit({
   publicKey: "publ21mpeGsUXktNLeztVPMSMy7w1w=ic_v",
   privateKey: "private_chfo2+sM1rnwp3sjVefYNrj7ccY=",
@@ -288,7 +293,7 @@ router.get('/home', isLoggedIn, async function (req, res, next) {
   // console.log(followingIds);
   // Get posts from users in the following list
   const posts = await postModel.find({ userid: { $in: followingIds } })
-    .populate('userid', 'username profilepic') // Populate the 'user' field with the 'username' only
+    .populate('userid', 'username profilepic comments') // Populate the 'user' field with the 'username' only
   // .sort('-createdAt') // Sort posts by createdAt in descending order
 
   // console.log(posts);
@@ -299,6 +304,7 @@ router.get('/home', isLoggedIn, async function (req, res, next) {
 
   const alluserstory = await storyModel.find({ userId: { $nin: [loggedinuser._id] } })
   // console.log(alluserstory);
+  console.log(posts);
 
   res.render('home', { allUser, loggedinuser, posts, userstory, alluserstory });
 });
@@ -383,17 +389,23 @@ router.get("/message", isLoggedIn, async function (req, res, next) {
   const loggedinuser = req.user
   res.render("message", { loggedinuser })
 })
-// router.get("/dislike/:userid", isLoggedIn, async function (req, res, next) {
 
-//   const loggedinuser = req.user
-//   console.log(req.params.userid);
-//   const postlike = await postModel.findById(req.params.userid)
-//   if (!postlike.likes.includes(loggedinuser._id)) return res.redirect("/home")
+router.get("/comment", isLoggedIn, async function (req, res, next) {
+  // console.log(req.query.postid);
+  // console.log(req.query.commenthai);
 
-//   await postlike.save();
-//   res.redirect("/home")
+  const comment = await commentModel.create({
+    postid:req.query.postid,
+    comment: req.query.commenthai
+  })
 
-// })
+  // console.log(comment);
+  const pushcomment = await postModel.findById(req.query.postid)
+  await comment.save();
+  // await postcommentpush.save()
+  res.json(pushcomment)
+
+})
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
