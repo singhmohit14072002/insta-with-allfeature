@@ -183,7 +183,7 @@
 
 
 
-                                                <i id="commentarea" class="ri-chat-1-line"></i>
+                                                <i id="commenton" class="ri-chat-1-line" onclick="commentsectionon('open<%=singlepost._id%>')"></i>
                                                 <i class="ri-send-plane-line"></i>
                                 </div>
                                 <i class="ri-bookmark-line"></i>
@@ -193,8 +193,8 @@
                                     <%=singlepost.postText%><a class="font-bold" href=""></a> <br> time <br>
                                 </p>
                             </div>
-                            <div class="commentArea w-full h-max-h px-3 flex flex-col gap-1 pb-2">
-                                <%=singlepost%>
+                            <div class="commentArea hidden w-full h-max-h px-3 flex flex-col gap-1 pb-2 open<%=singlepost._id%>">
+                                
                                 <h1>Add comment</h1>
                                 <div class="inputcomment flex">
                                     <input id="comment<%=singlepost._id%>" class=" w-[80%] rounded-full py-1 pl-2" type="text" name="raju"
@@ -202,6 +202,15 @@
                                     <button onclick="sendComment('<%=singlepost._id%>')" class="bg-blue-500 rounded-full text-sm text-white w-[20%]">comment</button>
                                 </div>
                                 <div id="commentarea<%=singlepost._id%>" class="comment rounded-md flex flex-col gap-1">
+                                   <%singlepost.comments.forEach((dets)=>{%>
+                                    <div class="commants bg-white flex justify-between rounded-full py-1 px-3 gap-8 ">
+                                        <div class="commentArea">
+                                            <%=dets.comment%>
+                                        </div>
+                                        <div class="reply flex gap-3"> <i class="ri-heart-fill"></i> <i onclick="replay()" class="ri-reply-line"></i></div>
+                                    </div>
+                                   
+                                   <%})%>              
                                     
                                 </div>
                             </div>
@@ -356,6 +365,22 @@
             })
 
             document.querySelector(`#comment${poostkiid}`).value = ""
+        }
+
+        let comt =0
+        function commentsectionon(value){
+            console.log(value);
+            
+            
+            if(comt ===0){
+                document.querySelector(`.${value}`).classList.remove("hidden")
+                comt=1
+            }else{
+                document.querySelector(`.${value}`).classList.add("hidden")
+                comt=0
+
+            }
+
         }
 
     </script>

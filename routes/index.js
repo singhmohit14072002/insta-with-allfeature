@@ -293,20 +293,23 @@ router.get('/home', isLoggedIn, async function (req, res, next) {
   // console.log(followingIds);
   // Get posts from users in the following list
   const posts = await postModel.find({ userid: { $in: followingIds } })
-    .populate('userid', 'username profilepic comments') // Populate the 'user' field with the 'username' only
+    .populate('userid','username  profilepic' ).populate("comments") // Populate the 'user' field with the 'username' only
   // .sort('-createdAt') // Sort posts by createdAt in descending order
 
   // console.log(posts);
 
+const commentss = await postModel.find({ userid: { $in: followingIds }}).populate("comments")
+
+// res.send(commentss)
 
   const userstory = await userModel.findOne({ username: loggedinuser.username }).populate("story")
   // console.log(userimg);
 
   const alluserstory = await storyModel.find({ userId: { $nin: [loggedinuser._id] } })
   // console.log(alluserstory);
-  console.log(posts);
+  // console.log(posts);
 
-  res.render('home', { allUser, loggedinuser, posts, userstory, alluserstory });
+  res.render('home', { allUser, loggedinuser, posts, userstory, alluserstory, commentss });
 });
 
 router.get('/profile', isLoggedIn, async function (req, res, next) {
@@ -401,6 +404,14 @@ router.get("/comment", isLoggedIn, async function (req, res, next) {
 
   // console.log(comment);
   const pushcomment = await postModel.findById(req.query.postid)
+  pushcomment.comments.push(comment._id)
+
+  pushcomment.populate("comments")
+  await pushcomment.save();
+
+  console.log(pushcomment);
+
+
   await comment.save();
   // await postcommentpush.save()
   res.json(pushcomment)
