@@ -113,277 +113,404 @@
             </div>
 
         </div>
-        <div class="right ml-[25%] w-[75%]  flex py-2 px-2 gap-2">
+        <div class="right ml-[25%] w-[75%] flex py-2 px-2 gap-2">
 
-            <div class="left w-[65%] h-screen ">
-                <div class="stories flex pt-2 gap-2  relative">
-                    <a href="/createstory"> <i
-                            class="ri-add-circle-line bg-blue-600 text-white px-1 absolute left-[60px] top-[60px] rounded-full"></i></a>
-
-                    <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-1"
-                        onclick='userdets("<%=loggedinuser.story%>")'>
-                        <img class="w-full h-full object-cover rounded-full"
-                            src="<%=loggedinuser.profilepic%>" alt="">
+            <div class="left w-full flex mx-auto h-screen ">
+                <div class="centerpart w-[64%] mx-auto">
+                    <div class="stories flex pt-2 gap-2  relative">
+                        <a href="/createstory"> <i
+                                class="ri-add-circle-line bg-blue-600 text-white px-1 absolute left-[60px] top-[60px] rounded-full"></i></a>
+    
+                        <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-1"
+                            onclick='userdets("<%=loggedinuser.story%>")'>
+                            <img class="w-full h-full object-cover rounded-full" src="<%=loggedinuser.profilepic%>" alt="">
+                        </div>
+                        <div class="usersstory flex overflow-auto scrol-auto">
+    
+                            <%alluserstory.forEach(story=>{%>
+                                <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1 bg-gradient-to-r from-purple-500 to-pink-500"
+                                    onclick='userdets("<%=story.story%>")'>
+                                    <img class="w-full h-full object-cover rounded-full" src="<%=story.dp%>" alt="">
+                                </div>
+                                <%})%>
+    
+                        </div>
+    
                     </div>
-                    <div class="usersstory flex overflow-auto scrol-auto">
-
-                        <%alluserstory.forEach(story=>{%>
-                            <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1 bg-gradient-to-r from-purple-500 to-pink-500"
-                                onclick='userdets("<%=story.story%>")'>
-                                <img class="w-full h-full object-cover rounded-full" src="<%=story.dp%>"
+                    <div class="followingpost w-[400px] absolute min-h flex flex-col gap-2 pt-3">
+                        <%posts.forEach(singlepost=>{ %>
+    
+                            <div class="post w-full h-max-h  bg-slate-100 ">
+                                <div class="username w-full p-2 flex gap-2 items-center justify-between">
+                                    <div class="p flex gap-2 items-center">
+                                        <div class="profile w-10 bg-sky-300 h-10 rounded-full">
+                                            <img class="w-full h-full object-cover rounded-full"
+                                                src="<%=singlepost.userid.profilepic%>" alt="">
+                                        </div>
+                                        <h1>
+                                            <%=singlepost.userid.username%>
+                                        </h1>
+                                    </div>
+                                    <i class="ri-more-fill"></i>
+                                </div>
+    
+                                <div class="post w-full h-[400px]">
+                                    <img class="w-full h-full object-cover" src="<%=singlepost.postPic%>" alt="pic">
+                                </div>
+                                <div class="like flex items-center justify-between p-1 text-2xl">
+                                    <div class="likes ">
+    
+                                        <!-- <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i id="like<%=singlepost._id%>"
+                                                class="ri-heart-fill text-red-100">
+                                                <%=singlepost.likes.length%>
+                                            </i></button> -->
+    
+                                        <%if(!singlepost.likes.includes(loggedinuser._id)){%>
+                                            <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
+                                                    id="like<%=singlepost._id%>" class="ri-heart-fill text-red-100">
+                                                    <%=singlepost.likes.length%>
+                                                </i></button>
+                                            <%}else{%>
+                                                <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
+                                                        id="like<%=singlepost._id%>" class="ri-heart-fill text-red-600">
+                                                        <%=singlepost.likes.length%>
+                                                    </i></button>
+                                                <%}%>
+    
+    
+    
+    
+    
+                                                    <i id="commenton" class="ri-chat-1-line"></i>
+                                                    <i id="replyon" class="ri-send-plane-line"></i>
+                                    </div>
+                                    <i class="ri-bookmark-line"></i>
+                                </div>
+                                <div class="description text-xs p-1">
+                                    <p>
+                                        <%=singlepost.postText%><a class="font-bold" href=""></a> <br> time <br>
+                                    </p>
+                                </div>
+    
+                                <div class="inputcomment flex hidden flex-col">
+                                    <h1 class="px-2">Add comment</h1>
+                                    <div class="inarea flex">
+                                        <input id="comment<%=singlepost._id%>" class=" w-[80%] rounded-full py-1 pl-2"
+                                            type="text" name="raju" placeholder="Add a comment..." />
+                                        <button onclick="sendComment('<%=singlepost._id%>')"
+                                            class="bg-blue-500 rounded-full text-sm text-white w-[20%]">comment</button>
+                                    </div>
+                                </div>
+                                <div class="replycomment hidden">
+                                    <h1 class="px-2">Add reply</h1>
+                                    <div class="inputcomment flex px-2">
+                                        <input id="reply<%=singlepost._id%>" class=" w-[80%] rounded-full py-1 pl-2"
+                                            type="text" name="raju" placeholder="Add a comment..." />
+                                        <button onclick="sendReply('<%=singlepost._id%>')"
+                                            class="bg-blue-500 rounded-full text-sm text-white w-[20%]">reply</button>
+                                    </div>
+                                </div>
+                                <h1 id="commentshow" class=" px-2 font-semibold mt-2 text-blue-600 text-sm"
+                                    onclick="commentsectionon('<%=singlepost._id%>')">Sell all comments</h1>
+                                <div
+                                    class="commentArea hidden w-full h-max-h px-3 flex flex-col gap-1 pb-2 open<%=singlepost._id%>">
+                                    <div id="commentarea<%=singlepost._id%>" class="comment rounded-md flex flex-col gap-1">
+                                        <%commentss.forEach((dets)=>{%>
+                                            <!-- <%=dets.postid%> -->
+                                            <!-- <%=singlepost._id%> -->
+                                            <%if(dets.postid==singlepost._id){%>
+                                                <div
+                                                    class="commants bg-white flex justify-between py-2 px-3 gap-8 items-center ">
+                                                    <div class="commentArea flex items-center">
+                                                        <div
+                                                            class="profileimg w-[40px] h-[40px] bg-red-500 mr-3 rounded-full">
+                                                            <img class="w-full h-full object-cover rounded-full "
+                                                                src="<%=dets.userid.profilepic%>" alt="">
+                                                        </div>
+                                                        <%=dets.comment%>
+                                                    </div>
+                                                    <div class="reply flex gap-3"> <i class="ri-heart-fill"></i>
+                                                        <i class="ri-reply-line replyonhai"
+                                                            onclick="reply('<%=dets._id%>')"></i>
+                                                    </div>
+                                                    <!-- <%=dets.reply%> -->
+    
+                                                </div>
+                                                <%dets.reply.forEach((replysss)=>{%>
+                                                    <div
+                                                        class="commants bg-slate-300 flex justify-between py-2 px-3 gap-8 items-center ">
+                                                        <div class="commentArea flex items-center">
+                                                            <div
+                                                                class="profileimg w-[40px] h-[40px] bg-red-500 mr-3 rounded-full">
+                                                                <img class="w-full h-full object-cover rounded-full "
+                                                                    src="<%=replysss.userid.profilepic%>" alt="">
+                                                            </div>
+                                                            <%=replysss.reply%>
+                                                        </div>
+                                                        <div class="reply flex gap-3"> <i class="ri-heart-fill"></i>
+                                                            <i class="ri-reply-line replyonhai" onclick="reply('<%=dets._id%>')"></i>
+                                                        </div>
+    
+    
+                                                        
+    
+                                                    </div>
+                                                    <%})%>
+                                                            <!-- equal hai -->
+                                                            <%}else{%>
+                                                                <!-- nahi hai -->
+                                                                <%}%>
+    
+                                                                    <%})%>
+                                    </div>
+                                </div>
+                                <%})%>
+                            </div>
+                    </div>
+                </div>
+                <div class="rightusers w-[25%] top-3 right-0 absolute  h-screen p-3">
+                    <div class="mainuser flex items-center justify-between">
+                        <div class="profile-img flex items-center gap-2">
+                            <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
+                                <img class="w-full h-full object-cover rounded-full" src="<%=loggedinuser.profilepic%>"
                                     alt="">
+                            </div>
+                            <div class="details leading-[20px]">
+                                <h1>
+                                    <%=loggedinuser.username%>
+                                </h1>
+                                <h1>
+                                    <%=loggedinuser.name%>
+                                </h1>
+                            </div>
+                        </div>
+                        <a class="font-bold" href="">Switch</a>
+                    </div>
+                    <h1 class="my-3 font-bold">Suggested for you</h1>
+
+                    <div class="suggesteduser flex flex-col gap-2">
+                        <%allUser.forEach(singleuser=>{ %>
+                            <div onclick="" class="mainuser flex items-center justify-between">
+                                <a href="/userprofile/<%=singleuser._id%>">
+                                    <div class="profile-img flex items-center gap-2">
+                                        <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
+                                            <img class="w-full h-full object-cover rounded-full"
+                                                src="<%=singleuser.profilepic%>" alt="">
+                                        </div>
+                                        <div class="details leading-[20px]">
+                                            <h1>
+                                                <%=singleuser.username%>
+                                            </h1>
+                                            <h1>
+                                                <%=singleuser.name%>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </a>
+                                <%if(singleuser.follower.includes(loggedinuser._id)){%>
+                                    <a data-state="<%=singleuser._id%>" id="followRequest"
+                                        class="font-bold text-white bg-red-500 px-3 py-1 rounded"
+                                        href="/unfollow/<%=singleuser._id%>">UnFollow</a>
+                                    <%}else if(singleuser.requests.includes(loggedinuser._id)){%>
+                                        <a data-state="<%=singleuser._id%>" id="followRequest"
+                                            class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
+                                            href="/requested/<%=singleuser._id%>">Requested</a>
+                                        <%} else { %>
+                                            <a data-state="<%=singleuser._id%>" id="followRequest"
+                                                class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
+                                                href="/follow/<%=singleuser._id%>">Follow</a>
+                                            <%}%>
                             </div>
                             <%})%>
 
+
                     </div>
-
-                </div>
-                <div class="followingpost w-[400px] mx-auto min-h-max flex flex-col gap-2 pt-3">
-                    <%posts.forEach(singlepost=>{ %>
-
-                        <div class="post w-full h-max-h  bg-slate-100 ">
-                            <div class="username w-full p-2 flex gap-2 items-center justify-between">
-                                <div class="p flex gap-2 items-center">
-                                    <div class="profile w-10 bg-sky-300 h-10 rounded-full">
-                                        <img class="w-full h-full object-cover rounded-full"
-                                            src="<%=singlepost.userid.profilepic%>" alt="">
-                                    </div>
-                                    <h1>
-                                        <%=singlepost.userid.username%>
-                                    </h1>
-                                </div>
-                                <i class="ri-more-fill"></i>
-                            </div>
-
-                            <div class="post w-full h-[400px]">
-                                <img class="w-full h-full object-cover" src="<%=singlepost.postPic%>"
-                                    alt="pic">
-                            </div>
-                            <div class="like flex items-center justify-between p-1 text-2xl">
-                                <div class="likes ">
-
-                                    <!-- <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i id="like<%=singlepost._id%>"
-                                            class="ri-heart-fill text-red-100">
-                                            <%=singlepost.likes.length%>
-                                        </i></button> -->
-
-                                    <%if(!singlepost.likes.includes(loggedinuser._id)){%>
-                                        <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
-                                                id="like<%=singlepost._id%>" class="ri-heart-fill text-red-100">
-                                                <%=singlepost.likes.length%>
-                                            </i></button>
-                                        <%}else{%>
-                                            <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
-                                                    id="like<%=singlepost._id%>" class="ri-heart-fill text-red-600">
-                                                    <%=singlepost.likes.length%>
-                                                </i></button>
-                                            <%}%>
-
-
-
-
-
-                                                <i id="commenton" class="ri-chat-1-line" onclick="commentsectionon('open<%=singlepost._id%>')"></i>
-                                                <i class="ri-send-plane-line"></i>
-                                </div>
-                                <i class="ri-bookmark-line"></i>
-                            </div>
-                            <div class="description text-xs p-1">
-                                <p>
-                                    <%=singlepost.postText%><a class="font-bold" href=""></a> <br> time <br>
-                                </p>
-                            </div>
-                            <div class="commentArea hidden w-full h-max-h px-3 flex flex-col gap-1 pb-2 open<%=singlepost._id%>">
-                                
-                                <h1>Add comment</h1>
-                                <div class="inputcomment flex">
-                                    <input id="comment<%=singlepost._id%>" class=" w-[80%] rounded-full py-1 pl-2" type="text" name="raju"
-                                        placeholder="Add a comment..."  />
-                                    <button onclick="sendComment('<%=singlepost._id%>')" class="bg-blue-500 rounded-full text-sm text-white w-[20%]">comment</button>
-                                </div>
-                                <div id="commentarea<%=singlepost._id%>" class="comment rounded-md flex flex-col gap-1">
-                                   <%singlepost.comments.forEach((dets)=>{%>
-                                    <div class="commants bg-white flex justify-between rounded-full py-1 px-3 gap-8 ">
-                                        <div class="commentArea">
-                                            <%=dets.comment%>
-                                        </div>
-                                        <div class="reply flex gap-3"> <i class="ri-heart-fill"></i> <i onclick="replay()" class="ri-reply-line"></i></div>
-                                    </div>
-                                   
-                                   <%})%>              
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <%})%>
-                </div>
-            </div>
-            <div class="right w-[35%] h-screen p-3">
-                <div class="mainuser flex items-center justify-between">
-                    <div class="profile-img flex items-center gap-2">
-                        <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
-                            <img class="w-full h-full object-cover rounded-full"
-                                src="<%=loggedinuser.profilepic%>" alt="">
-                        </div>
-                        <div class="details leading-[20px]">
-                            <h1>
-                                <%=loggedinuser.username%>
-                            </h1>
-                            <h1>
-                                <%=loggedinuser.name%>
-                            </h1>
-                        </div>
-                    </div>
-                    <a class="font-bold" href="">Switch</a>
-                </div>
-                <h1 class="my-3 font-bold">Suggested for you</h1>
-
-                <div class="suggesteduser flex flex-col gap-2">
-                    <%allUser.forEach(singleuser=>{ %>
-                        <div onclick="" class="mainuser flex items-center justify-between">
-                            <a href="/userprofile/<%=singleuser._id%>">
-                                <div class="profile-img flex items-center gap-2">
-                                    <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
-                                        <img class="w-full h-full object-cover rounded-full"
-                                            src="<%=singleuser.profilepic%>" alt="">
-                                    </div>
-                                    <div class="details leading-[20px]">
-                                        <h1>
-                                            <%=singleuser.username%>
-                                        </h1>
-                                        <h1>
-                                            <%=singleuser.name%>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </a>
-                            <%if(singleuser.follower.includes(loggedinuser._id)){%>
-                                <a data-state="<%=singleuser._id%>" id="followRequest"
-                                    class="font-bold text-white bg-red-500 px-3 py-1 rounded"
-                                    href="/unfollow/<%=singleuser._id%>">UnFollow</a>
-                                <%}else if(singleuser.requests.includes(loggedinuser._id)){%>
-                                    <a data-state="<%=singleuser._id%>" id="followRequest"
-                                        class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
-                                        href="/requested/<%=singleuser._id%>">Requested</a>
-                                    <%} else { %>
-                                        <a data-state="<%=singleuser._id%>" id="followRequest"
-                                            class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
-                                            href="/follow/<%=singleuser._id%>">Follow</a>
-                                        <%}%>
-                        </div>
-                        <%})%>
-
-
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        var flag = 0;
-        document.querySelector(".baby").addEventListener("click", () => {
-            if (flag === 0) {
-                document.querySelector('#cretepost').classList.remove("hidden")
-                flag = 1
+        <script>
+            var flag = 0;
+            document.querySelector(".baby").addEventListener("click", () => {
+                if (flag === 0) {
+                    document.querySelector('#cretepost').classList.remove("hidden")
+                    flag = 1
 
-            }
-            else {
-                document.querySelector('#cretepost').classList.add("hidden")
-                flag = 0
-            }
-        })
-
-        let babylike = 0
-        function like(userid, loginuser) {
-            // console.log(loginuser);
-            axios.get(`/like/${userid}`)
-                .then(function (response) {
-                    // console.log(response.data);
-                    if (response.data.likes.includes(loginuser)) {
-                        document.querySelector(`#like${userid}`).classList.remove("text-red-100")
-                        document.querySelector(`#like${userid}`).classList.add("text-red-600")
-                        document.querySelector(`#like${userid}`).innerHTML = response.data.likes.length
-                    } else {
-                        document.querySelector(`#like${userid}`).classList.remove("text-red-600")
-                        document.querySelector(`#like${userid}`).classList.add("text-red-100")
-                        document.querySelector(`#like${userid}`).innerHTML = response.data.likes.length
-                    }
-
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-        }
-
-        let timeout
-
-        function userdets(value) {
-
-            document.querySelector(".storyarea").classList.remove("hidden")
-            if (!value) {
-                document.querySelector("#storyimg").setAttribute("src", "https://static-prod.adweek.com/wp-content/uploads/2018/02/Instagram-Stories-Tap-to-Type-546x1024.png")
-            } else {
-                document.querySelector("#storyimg").setAttribute("src", "" + value)
-            }
-
-            timeout = setTimeout(() => {
-                document.querySelector(".storyarea").classList.add("hidden")
-            }, 3000)
-        }
-
-
-        function closeStory() {
-            clearTimeout(timeout)
-            document.querySelector(".storyarea").classList.add("hidden")
-        }
-
-        function sendComment(poostkiid){
-            // console.log(`comment${poostkiid}`);
-            const cmnt = document.querySelector(`#comment${poostkiid}`)
-            const comment = document.querySelector(`#comment${poostkiid}`).value;
-
-            const postid = poostkiid
-            const commenthai = comment
-            axios.get(`/comment`,{
-                params:{
-                    postid,
-                    commenthai
                 }
-            }).then(function(response){
-                // console.log(response);
-                
-
-                const template =  `
-                <div class="commants bg-white flex justify-between rounded-full py-1 px-3 gap-8 ">
-                                        <div class="commentArea">
-                                            ${commenthai}
-                                        </div>
-                                        <div class="reply flex gap-3"> <i class="ri-heart-fill"></i> <i onclick="replay()" class="ri-reply-line"></i></div>
-                                    </div>
-                `
-                document.querySelector(`#commentarea${poostkiid}`).innerHTML += template
+                else {
+                    document.querySelector('#cretepost').classList.add("hidden")
+                    flag = 0
+                }
             })
 
-            document.querySelector(`#comment${poostkiid}`).value = ""
-        }
+            let babylike = 0
+            function like(userid, loginuser) {
+                // console.log(loginuser);
+                axios.get(`/like/${userid}`)
+                    .then(function (response) {
+                        // console.log(response.data);
+                        if (response.data.likes.includes(loginuser)) {
+                            document.querySelector(`#like${userid}`).classList.remove("text-red-100")
+                            document.querySelector(`#like${userid}`).classList.add("text-red-600")
+                            document.querySelector(`#like${userid}`).innerHTML = response.data.likes.length
+                        } else {
+                            document.querySelector(`#like${userid}`).classList.remove("text-red-600")
+                            document.querySelector(`#like${userid}`).classList.add("text-red-100")
+                            document.querySelector(`#like${userid}`).innerHTML = response.data.likes.length
+                        }
 
-        let comt =0
-        function commentsectionon(value){
-            console.log(value);
-            
-            
-            if(comt ===0){
-                document.querySelector(`.${value}`).classList.remove("hidden")
-                comt=1
-            }else{
-                document.querySelector(`.${value}`).classList.add("hidden")
-                comt=0
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+            }
+
+            let timeout
+
+            function userdets(value) {
+
+                document.querySelector(".storyarea").classList.remove("hidden")
+                if (!value) {
+                    document.querySelector("#storyimg").setAttribute("src", "https://static-prod.adweek.com/wp-content/uploads/2018/02/Instagram-Stories-Tap-to-Type-546x1024.png")
+                } else {
+                    document.querySelector("#storyimg").setAttribute("src", "" + value)
+                }
+
+                timeout = setTimeout(() => {
+                    document.querySelector(".storyarea").classList.add("hidden")
+                }, 3000)
+            }
+
+            let close = 0;
+            document.querySelector("#commenton").addEventListener("click", function () {
+
+                if (close === 0) {
+                    document.querySelector(".replycomment").classList.add("hidden")
+                    document.querySelector(".inputcomment").classList.remove("hidden")
+                    close = 1
+                } else {
+                    document.querySelector(".inputcomment").classList.add("hidden")
+                    close = 0
+                }
+            })
+            let replyon = 0
+            document.querySelector(".replyonhai").addEventListener("click", () => {
+                if (replyon === 0) {
+                    console.log(replyon);
+                    document.querySelector(".inputcomment").classList.add("hidden")
+                    document.querySelector(".replycomment").classList.remove("hidden")
+                    replyon = 1
+                } else {
+                    document.querySelector(".replycomment").classList.add("hidden")
+                    replyon = 0
+                    console.log(replyon);
+                }
+            })
+
+
+            function closeStory() {
+                clearTimeout(timeout)
+                document.querySelector(".storyarea").classList.add("hidden")
+            }
+
+            function sendComment(poostkiid) {
+                // console.log(`comment${poostkiid}`);
+                const cmnt = document.querySelector(`#comment${poostkiid}`)
+                const comment = document.querySelector(`#comment${poostkiid}`).value;
+                const loginkiprofile = '<%=loggedinuser.profilepic%>'
+                // console.log(loginkiprofile);
+
+                const postid = poostkiid
+                const commenthai = comment
+                axios.get(`/comment`, {
+                    params: {
+                        postid,
+                        commenthai
+                    }
+                }).then(function (response) {
+                    // console.log(response);
+                    document.querySelector(`#commentarea${poostkiid}`).innerHTML = ''
+
+
+                    const template = `
+                <div class="commants bg-white flex justify-between rounded-full py-2 px-3 gap-8 items-center ">
+                                        <div class="commentArea flex items-center">
+                                            <div class="profileimg w-[40px] h-[40px] bg-red-500 rounded-full" >
+                                                <img class="w-full h-full obejct-cover rounded-full "
+                                                        src="${loginkiprofile}" alt="">
+                                            </div>
+                                            ${commenthai}
+                                        </div>
+                                        <div class="reply flex gap-3"> <i class="ri-heart-fill"></i>
+                                                    <i class="ri-reply-line replyonhai" onclick="reply('${poostkiid}')"></i>
+                                                </div>
+                                    </div>
+                `
+                    document.querySelector(`#commentarea${poostkiid}`).innerHTML = template
+                })
+
+                document.querySelector(`#comment${poostkiid}`).value = ""
+                document.querySelector(`#commentarea${poostkiid}`).innerHTML = ''
+            }
+
+
+            function commentsectionon(value) {
+                let allcomt = 0;
+                if (allcomt === 0) {
+                    document.querySelector(`.open${value}`).classList.remove("hidden")
+                    allcomt = 1
+                } else {
+                    document.querySelector(`.open${value}`).classList.add("hidden")
+                    allcomt = 0
+
+                }
 
             }
 
-        }
 
-    </script>
+            var replytoperson
+            function reply(commentid) {
+                replytoperson = commentid
+                console.log(replytoperson);
+                document.querySelector(".replycomment").classList.remove("hidden")
+            }
+            function sendReply(replyid) {
+                const replyss = document.querySelector(`#reply${replyid}`).value;
+                console.log(replyss);
+                console.log(replytoperson);
+
+                const reply = replyss
+                const commentid = replytoperson
+                const postid = replyid
+
+                axios.get("/reply", {
+                    params: {
+                        reply,
+                        commentid,
+                        postid
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    const template = `
+                <div class="commants bg-white flex justify-between py-2 px-3 gap-8 items-center ">
+                                                <div class="commentArea flex items-center">
+                                                    <div
+                                                        class="profileimg w-[40px] h-[40px] bg-red-500 mr-3 rounded-full">
+                                                        <img class="w-full h-full object-cover rounded-full "
+                                                            src="${response.data.reply.userid.profilepic}" alt="">
+                                                    </div>
+                                                    ${response.data}
+                                                </div>
+                                                <div class="reply flex gap-3"> <i class="ri-heart-fill"></i>
+                                                    <i class="ri-reply-line replyonhai" onclick="reply('')"></i>
+                                                </div> `
+                    document.querySelector(`#commentarea${replyid}`).innerHTML = template
+                })
+            }
+
+
+
+        </script>
 
 
 </body>
