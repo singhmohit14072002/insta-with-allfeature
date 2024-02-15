@@ -315,7 +315,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="rightusers w-[25%] top-3 right-0 absolute  h-screen p-3">
+                <div class="rightusers w-[25%] top-0 right-0 absolute  h-screen p-3">
                     <div class="mainuser flex items-center justify-between">
                         <div class="profile-img flex items-center gap-2">
                             <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
@@ -333,13 +333,13 @@
                         </div>
                         <a class="font-bold" href="">Switch</a>
                     </div>
-                    <h1 class="my-3 font-bold">Suggested for you</h1>
+                    <h1 class="my-3 font-semibold">Suggested for you</h1>
 
-                    <div class="suggesteduser flex flex-col gap-2">
+                    <div class="suggesteduser w-full flex flex-col gap-2">
                         <%allUser.forEach(singleuser=>{ %>
-                            <div onclick="" class="mainuser flex items-center justify-between">
+                            <div onclick="" class="mainuser w-full flex items-center justify-between">
                                 <a href="/userprofile/<%=singleuser._id%>">
-                                    <div class="profile-img flex items-center gap-2">
+                                    <div class="profile-img  flex items-center gap-2">
                                         <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
                                             <img class="w-full h-full object-cover rounded-full"
                                                 src="<%=singleuser.profilepic%>" alt="">
