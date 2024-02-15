@@ -109,7 +109,7 @@
                 <div class="requests w-full flex items-center justify-between px-3 h-[70px] bg-slate-300">
                     <div class="profile flex items-center">
                         <div class="imgpro w-[50px] h-[50px] bg-red-300 rounded-full">
-                            <img src="" alt="">
+                            <img class="w-full h-full object-cover rounded-full" src="<%=singleuser.profilepic%>" alt="">
                         </div>
                         <h2 class="ml-4">
                             <%=singleuser.username%>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="buttom">
                         <a id="accept" href="/accept/<%=singleuser._id%>"><button class="px-3 py-1 bg-blue-500 text-white rounded">accept</button></a>
-                        <a id="reject" href="/reject/<%=singleuser._id%>"><button class="px-3 py-1 bg-red-500  text-white rounded">reject</button></a>
+                        <!-- <a id="reject" href="/reject/<%=singleuser._id%>"><button class="px-3 py-1 bg-red-500  text-white rounded">reject</button></a> -->
                     </div>
                 </div>
                 <%}) %>

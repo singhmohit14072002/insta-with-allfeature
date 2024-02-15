@@ -15,6 +15,52 @@
 
 
 <body>
+    <div class="postareawithcomment hidden w-screen h-screen fixed  bg-black/85 z-20 px-[150px] py-[70px] ">
+        <!-- <i class="ri-close-line absolute font-bold text-white text-4xl top-10 right-20" onclick="clospostarea()"></i>
+        <div class="postpart w-full flex h-full bg-white">
+            <div class="imagepart w-1/2 h-full">
+                <img class="w-full h-full object-cover"
+                    src="https://images.unsplash.com/photo-1707501734938-57bac2fb7f81?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="">
+            </div>
+            <div class="comntarear w-1/2 h-full">
+                <div class="profilesect w-full h-max bg-slate-100 flex px-1 items-center py-1 sticky">
+                    <div class="personimg h-[60px] w-[60px] ">
+                        <img class="w-full h-full obejct-cover rounded-full"
+                            src="https://images.unsplash.com/photo-1535026406642-530e01750ad7?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="">
+                    </div>
+                    <div class="userpostinfo">
+                        <h1>username</h1>
+                        <h1>post ki tage line</h1>
+                    </div>
+                </div>
+                <div class="commentareas w-full h-[73%] p-2 overflow-auto flex flex-col gap-2 scroll-auto">
+
+                    <div class="comntperson w-full h-max  flex">
+                        <div class="personimg h-[60px] w-[60px] ">
+                            <img class="w-full h-full obejct-cover rounded-full"
+                                src="https://images.unsplash.com/photo-1535026406642-530e01750ad7?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="">
+                        </div>
+                        <div class="msg w-[70%] flex flex-col px-2 leading-0">
+                            <div class="msglikew-full flex justify-between">
+                                <h1>comment</h1>
+                                <i class="ri-heart-fill"></i>
+                            </div>
+                            <h1>reply</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputaresa w-full h-[13%] flex flex-end items-center justify-center">
+
+                    <input type="text" placeholder="Add you comment" class="border-slate-950 w-[80%] border-b-[2px] px-2 py-[11px] outline-none">
+                    <button class="text-white bg-blue-600 w-[20%] py-3  text-center ">comment</button>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
     <div
         class="storyarea w-full h-screen bg-gradient-to-b from-black  absolute z-10 hidden flex items-center justify-center">
         <div class=" w-[350px] h-[500px] bg-red-400 m-auto relative ">
@@ -23,7 +69,8 @@
             <img class="w-full h-full object-cover" id="storyimg" src="" alt="">
         </div>
     </div>
-    <div class="main w-full h-screen flex">
+    
+    <div class="mainpage w-full h-screen flex">
         <div class="left w-[25%] h-screen fixed flex flex-col px-3 py-5 shadow-[0_20px_30px_-15px_rgba(0,0,0,0.3)]">
             <div class="logo w-[50%] relative">
                 <img class="w-full h-full object-cover" src="/images/download.png" alt="">
@@ -120,26 +167,27 @@
                     <div class="stories flex pt-2 gap-2  relative">
                         <a href="/createstory"> <i
                                 class="ri-add-circle-line bg-blue-600 text-white px-1 absolute left-[60px] top-[60px] rounded-full"></i></a>
-    
+
                         <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-1"
                             onclick='userdets("<%=loggedinuser.story%>")'>
-                            <img class="w-full h-full object-cover rounded-full" src="<%=loggedinuser.profilepic%>" alt="">
+                            <img class="w-full h-full object-cover rounded-full" src="<%=loggedinuser.profilepic%>"
+                                alt="">
                         </div>
                         <div class="usersstory flex overflow-auto scrol-auto">
-    
+
                             <%alluserstory.forEach(story=>{%>
                                 <div class="div w-[80px] h-[80px] rounded-full bg-sky-300 overflow-hidden p-1 bg-gradient-to-r from-purple-500 to-pink-500"
                                     onclick='userdets("<%=story.story%>")'>
                                     <img class="w-full h-full object-cover rounded-full" src="<%=story.dp%>" alt="">
                                 </div>
                                 <%})%>
-    
+
                         </div>
-    
+
                     </div>
                     <div class="followingpost w-[400px] absolute min-h flex flex-col gap-2 pt-3">
                         <%posts.forEach(singlepost=>{ %>
-    
+
                             <div class="post w-full h-max-h  bg-slate-100 ">
                                 <div class="username w-full p-2 flex gap-2 items-center justify-between">
                                     <div class="p flex gap-2 items-center">
@@ -153,35 +201,32 @@
                                     </div>
                                     <i class="ri-more-fill"></i>
                                 </div>
-    
+
                                 <div class="post w-full h-[400px]">
                                     <img class="w-full h-full object-cover" src="<%=singlepost.postPic%>" alt="pic">
                                 </div>
                                 <div class="like flex items-center justify-between p-1 text-2xl">
                                     <div class="likes ">
-    
+
                                         <!-- <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i id="like<%=singlepost._id%>"
                                                 class="ri-heart-fill text-red-100">
                                                 <%=singlepost.likes.length%>
                                             </i></button> -->
-    
+
                                         <%if(!singlepost.likes.includes(loggedinuser._id)){%>
                                             <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
                                                     id="like<%=singlepost._id%>" class="ri-heart-fill text-red-100">
                                                     <%=singlepost.likes.length%>
                                                 </i></button>
                                             <%}else{%>
-                                                <button onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
+                                                <button
+                                                    onclick="like('<%=singlepost._id%>', '<%=loggedinuser._id%>')"><i
                                                         id="like<%=singlepost._id%>" class="ri-heart-fill text-red-600">
                                                         <%=singlepost.likes.length%>
                                                     </i></button>
                                                 <%}%>
-    
-    
-    
-    
-    
-                                                    <i id="commenton" class="ri-chat-1-line"></i>
+                                                    <i id="commenton" onclick="opencommentarea('<%=singlepost._id%>')"
+                                                        class="ri-chat-1-line"></i>
                                                     <i id="replyon" class="ri-send-plane-line"></i>
                                     </div>
                                     <i class="ri-bookmark-line"></i>
@@ -191,8 +236,8 @@
                                         <%=singlepost.postText%><a class="font-bold" href=""></a> <br> time <br>
                                     </p>
                                 </div>
-    
-                                <div class="inputcomment flex hidden flex-col">
+
+                                <!-- <div id="comments<%=singlepost._id%>" class="inputcomment flex  flex-col">
                                     <h1 class="px-2">Add comment</h1>
                                     <div class="inarea flex">
                                         <input id="comment<%=singlepost._id%>" class=" w-[80%] rounded-full py-1 pl-2"
@@ -200,27 +245,28 @@
                                         <button onclick="sendComment('<%=singlepost._id%>')"
                                             class="bg-blue-500 rounded-full text-sm text-white w-[20%]">comment</button>
                                     </div>
-                                </div>
-                                <div class="replycomment hidden">
+                                </div> -->
+                                <div id="replys<%=singlepost._id%>" class="replycomment  flex flex-col">
                                     <h1 class="px-2">Add reply</h1>
                                     <div class="inputcomment flex px-2">
                                         <input id="reply<%=singlepost._id%>" class=" w-[80%] rounded-full py-1 pl-2"
-                                            type="text" name="raju" placeholder="Add a comment..." />
+                                            type="text" name="raju" placeholder="Add a reply..." />
                                         <button onclick="sendReply('<%=singlepost._id%>')"
                                             class="bg-blue-500 rounded-full text-sm text-white w-[20%]">reply</button>
                                     </div>
                                 </div>
-                                <h1 id="commentshow" class=" px-2 font-semibold mt-2 text-blue-600 text-sm"
-                                    onclick="commentsectionon('<%=singlepost._id%>')">Sell all comments</h1>
+                                <!-- <h1 id="commentshow" class=" px-2 font-semibold mt-2 text-blue-600 text-sm"
+                                    onclick="commentsectionon('<%=singlepost._id%>')">Sell all comments</h1> -->
                                 <div
                                     class="commentArea hidden w-full h-max-h px-3 flex flex-col gap-1 pb-2 open<%=singlepost._id%>">
-                                    <div id="commentarea<%=singlepost._id%>" class="comment rounded-md flex flex-col gap-1">
+                                    <div id="commentarea<%=singlepost._id%>"
+                                        class="comment rounded-md flex flex-col gap-1">
                                         <%commentss.forEach((dets)=>{%>
                                             <!-- <%=dets.postid%> -->
                                             <!-- <%=singlepost._id%> -->
                                             <%if(dets.postid==singlepost._id){%>
                                                 <div
-                                                    class="commants bg-white flex justify-between py-2 px-3 gap-8 items-center ">
+                                                    class="commants bg-white border-2 rounded-full flex justify-between py-2 px-3 gap-8 items-center ">
                                                     <div class="commentArea flex items-center">
                                                         <div
                                                             class="profileimg w-[40px] h-[40px] bg-red-500 mr-3 rounded-full">
@@ -234,11 +280,11 @@
                                                             onclick="reply('<%=dets._id%>')"></i>
                                                     </div>
                                                     <!-- <%=dets.reply%> -->
-    
+
                                                 </div>
                                                 <%dets.reply.forEach((replysss)=>{%>
                                                     <div
-                                                        class="commants bg-slate-300 flex justify-between py-2 px-3 gap-8 items-center ">
+                                                        class="commants w-[80%] ml-auto rounded-full border-2 bg-slate-100 flex justify-between py-2 px-3 gap-8 items-center ">
                                                         <div class="commentArea flex items-center">
                                                             <div
                                                                 class="profileimg w-[40px] h-[40px] bg-red-500 mr-3 rounded-full">
@@ -248,20 +294,21 @@
                                                             <%=replysss.reply%>
                                                         </div>
                                                         <div class="reply flex gap-3"> <i class="ri-heart-fill"></i>
-                                                            <i class="ri-reply-line replyonhai" onclick="reply('<%=dets._id%>')"></i>
+                                                            <i class="ri-reply-line replyonhai"
+                                                                onclick="reply('<%=dets._id%>')"></i>
                                                         </div>
-    
-    
-                                                        
-    
+
+
+
+
                                                     </div>
                                                     <%})%>
-                                                            <!-- equal hai -->
-                                                            <%}else{%>
-                                                                <!-- nahi hai -->
-                                                                <%}%>
-    
-                                                                    <%})%>
+                                                        <!-- equal hai -->
+                                                        <%}else{%>
+                                                            <!-- nahi hai -->
+                                                            <%}%>
+
+                                                                <%})%>
                                     </div>
                                 </div>
                                 <%})%>
@@ -381,31 +428,33 @@
                 }, 3000)
             }
 
-            let close = 0;
-            document.querySelector("#commenton").addEventListener("click", function () {
+            // let close = 0;
 
-                if (close === 0) {
-                    document.querySelector(".replycomment").classList.add("hidden")
-                    document.querySelector(".inputcomment").classList.remove("hidden")
-                    close = 1
-                } else {
-                    document.querySelector(".inputcomment").classList.add("hidden")
-                    close = 0
-                }
-            })
-            let replyon = 0
-            document.querySelector(".replyonhai").addEventListener("click", () => {
-                if (replyon === 0) {
-                    console.log(replyon);
-                    document.querySelector(".inputcomment").classList.add("hidden")
-                    document.querySelector(".replycomment").classList.remove("hidden")
-                    replyon = 1
-                } else {
-                    document.querySelector(".replycomment").classList.add("hidden")
-                    replyon = 0
-                    console.log(replyon);
-                }
-            })
+            // document.querySelector("#commenton").addEventListener("click", function () {
+
+            //     if (close === 0) {
+            //         document.querySelector(".replycomment").classList.add("hidden")
+            //         document.querySelector(".inputcomment").classList.remove("hidden")
+            //         close = 1
+            //     } else {
+            //         document.querySelector(".inputcomment").classList.add("hidden")
+            //         close = 0
+            //     }
+            // })
+            // let replyon = 0
+
+            // document.querySelector(".replyonhai").addEventListener("click", () => {
+            //     if (replyon === 0) {
+            //         console.log(replyon);
+            //         document.querySelector(".inputcomment").classList.add("hidden")
+            //         document.querySelector(".replycomment").classList.remove("hidden")
+            //         replyon = 1
+            //     } else {
+            //         document.querySelector(".replycomment").classList.add("hidden")
+            //         replyon = 0
+            //         console.log(replyon);
+            //     }
+            // })
 
 
             function closeStory() {
@@ -415,13 +464,18 @@
 
             function sendComment(poostkiid) {
                 // console.log(`comment${poostkiid}`);
-                const cmnt = document.querySelector(`#comment${poostkiid}`)
-                const comment = document.querySelector(`#comment${poostkiid}`).value;
+                // const cmnt = document.querySelector(`#comment${poostkiid}`)
+                // console.log(cmnt);
+                // const comment = document.querySelector(`#comment${poostkiid}`).value;
+                // console.log(comment);
+                const comment = document.querySelector(`#input${poostkiid}`).value
+                console.log(comment);
                 const loginkiprofile = '<%=loggedinuser.profilepic%>'
                 // console.log(loginkiprofile);
 
                 const postid = poostkiid
                 const commenthai = comment
+                console.log(postid, commenthai)
                 axios.get(`/comment`, {
                     params: {
                         postid,
@@ -429,10 +483,11 @@
                     }
                 }).then(function (response) {
                     // console.log(response);
-                    document.querySelector(`#commentarea${poostkiid}`).innerHTML = ''
+                    document.querySelector(`#comt${poostkiid}`).innerHTML = ''
 
 
                     const template = `
+
                 <div class="commants bg-white flex justify-between rounded-full py-2 px-3 gap-8 items-center ">
                                         <div class="commentArea flex items-center">
                                             <div class="profileimg w-[40px] h-[40px] bg-red-500 rounded-full" >
@@ -446,7 +501,24 @@
                                                 </div>
                                     </div>
                 `
-                    document.querySelector(`#commentarea${poostkiid}`).innerHTML = template
+
+                const template2 = `
+                
+                <div class="comntperson w-full h-max  flex">
+                        <div class="personimg h-[60px] w-[60px] ">
+                            <img class="w-full h-full obejct-cover rounded-full"
+                                src="${loginkiprofile}"
+                                alt="">
+                        </div>
+                        <div class="msg w-[70%] flex flex-col px-2 leading-0">
+                            <div class="msglikew-full flex justify-between">
+                                <h1>${commenthai}</h1>
+                                <i class="ri-heart-fill"></i>
+                            </div>
+                            <h1 onclick="reply('${poostkiid}')">reply</h1>
+                        </div>
+                    </div>`
+                    document.querySelector(`#comt${poostkiid}`).innerHTML = template2
                 })
 
                 document.querySelector(`#comment${poostkiid}`).value = ""
@@ -454,24 +526,25 @@
             }
 
 
-            function commentsectionon(value) {
-                let allcomt = 0;
-                if (allcomt === 0) {
-                    document.querySelector(`.open${value}`).classList.remove("hidden")
-                    allcomt = 1
-                } else {
-                    document.querySelector(`.open${value}`).classList.add("hidden")
-                    allcomt = 0
+            // function commentsectionon(value) {
+            //             let allcomt = 0;
+            //             if (allcomt === 0) {
+            //                 document.querySelector(`.open${value}`).classList.remove("hidden")
+            //                 allcomt = 1
+            //             } else {
+            //                 document.querySelector(`.open${value}`).classList.add("hidden")
+            //                 allcomt = 0
 
-                }
+            //             }
 
-            }
+            //         }
 
 
+    
             var replytoperson
             function reply(commentid) {
                 replytoperson = commentid
-                console.log(replytoperson);
+                // console.log(replytoperson);
                 document.querySelector(".replycomment").classList.remove("hidden")
             }
             function sendReply(replyid) {
@@ -508,7 +581,86 @@
                 })
             }
 
+            function opencommentarea(bay) {
+                console.log(bay);
+                document.querySelector(".postareawithcomment").classList.remove("hidden")
+                document.querySelector(".mainpage").classList.add("overflow-hidden")
+                document.body.style.overflow = 'hidden';
 
+                axios.get(`/post/${bay}`).then(function (response) {
+                    console.log(response);
+
+                    var template = `
+                    <i class="ri-close-line absolute font-bold text-white text-4xl top-10 right-20" onclick="clospostarea()"></i>
+        <div class="postpart w-full flex h-full bg-white">
+            <div class="imagepart w-1/2 h-full">
+                <img class="w-full h-full object-cover"
+                    src="${response.data.posinfo.postPic}"
+                    alt="">
+            </div>
+            <div class="comntarear w-1/2 h-full">
+                <div class="profilesect w-full h-max bg-slate-100 flex px-1 items-center py-1 sticky">
+                    <div class="personimg h-[60px] w-[60px] ">
+                        <img class="w-full h-full obejct-cover rounded-full"
+                            src="${response.data.posinfo.userid.profilepic}"
+                            alt="">
+                    </div>
+                    <div class="userpostinfo ml-3">
+                        <h1>${response.data.posinfo.userid.username}</h1>
+                        <h1>${response.data.posinfo.postText}</h1>
+                    </div>
+                </div>
+                <div id="comt${bay}" class="commentareas w-full h-[73%] p-2 overflow-auto flex flex-col gap-2 scroll-auto">
+
+                </div>
+                <div class="inputaresa w-full h-[13%] flex flex-end items-center justify-center">
+
+                    <input id="input${bay}" type="text" placeholder="Add you comment" class="border-slate-950 w-[80%] border-b-[2px] px-2 py-[11px] outline-none">
+                    <button onclick="sendComment('${bay}')" class="text-white bg-blue-600 w-[20%] py-3  text-center ">comment</button>
+                </div>
+            </div>
+        </div>
+                    `
+
+                    
+                    
+var baby = ''
+                    response.data.commentss.forEach(singlelm=>{
+                        if(singlelm.postid == bay){
+                            // console.log("asdjkahk");
+                             baby += 
+                    `<div class="comntperson w-full h-max  flex">
+                                <div class="personimg h-[60px] w-[60px] ">
+                                        <img class="w-full h-full obejct-cover rounded-full"
+                                src="${singlelm.userid.profilepic}"
+                                alt="">
+                        </div>
+                        <div class="msg w-[70%] flex flex-col px-2 leading-0">
+                            <div class="msglikew-full flex justify-between">
+                                <h1>${singlelm.comment}</h1>
+                                <i class="ri-heart-fill"></i>
+                            </div>
+                            <h1>reply</h1>
+                        </div>
+                    </div>
+                    `
+                        }
+                        
+
+                    })
+                    
+                    
+                    document.querySelector(".postareawithcomment").innerHTML += template;
+                    // console.log(document.querySelector(`#comt${bay}`));
+                    document.querySelector(`#comt${bay}`).innerHTML += baby
+                })
+
+            }
+            function clospostarea() {
+                document.querySelector(".postareawithcomment").classList.add("hidden")
+                document.body.style.overflow = 'auto';
+                document.querySelector(".postareawithcomment").innerHTML = ''
+            }
 
         </script>
 

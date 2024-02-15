@@ -302,7 +302,7 @@ router.get('/home', isLoggedIn, async function (req, res, next) {
 const commentss = await commentModel.find().populate("userid").populate("reply").populate({path:"reply", populate:"userid"})
 
 // res.send(commentss)
-console.log(commentss);
+// console.log(commentss);
 
   const userstory = await userModel.findOne({ username: loggedinuser.username }).populate("story")
   // console.log(userimg);
@@ -423,6 +423,19 @@ router.get("/comment", isLoggedIn, async function (req, res, next) {
 
 })
 
+router.get("/post/:info", isLoggedIn, async function(req, res ,next){
+  console.log(req.params.info);
+  const posinfo  = await postModel.findOne({_id:req.params.info})
+  .populate("comments").populate({path:"comments", populate:"reply"}).populate("userid")
+  const commentss = await commentModel.find().populate("userid").populate("reply").populate({path:"reply", populate:"userid"})
+  // console.log(commentss);
+  
+  const newResponse = {
+    posinfo,
+    commentss
+  }
+  res.json(newResponse)
+})
 
 router.get("/reply", isLoggedIn, async function(req, res, next){
   console.log(req.query.reply);
