@@ -435,7 +435,7 @@
                         commenthai
                     }
                 }).then(function (response) {
-                    
+
                 const template2 = `
                 
                 <div class="comntperson w-full h-max  flex">
@@ -483,10 +483,23 @@
                     }
                 }).then(function (response) {
                     console.log(response);
-                    const template = `
-                <div class="commants bg-slate-200 flex justify-between py-2 px-3 gap-8 items-center ">
-                    ${response}
-                                                </div> `
+                    const template = 
+                    `<div class="comntperson bg-slate-100 w-[70%] ml-auto h-max  flex">
+                                <div class="personimg h-[60px] w-[60px] ">
+                                        <img class="w-full h-full obejct-cover rounded-full"
+                                src="${response.data.userid.profilepic}"
+                                alt="">
+                        </div>
+                        <div class="msg w-[100%] flex flex-col px-2 leading-0">
+                            <div class="msglikew-full flex ">
+                                <h1>${response.data.reply}</h1>
+                                <i class="ri-heart-fill ml-auto"></i>
+                            </div>
+                            
+                            <h1 onclick="openreply('${singlelm._id}','${response.data.posinfo._id}')")>reply</h1>
+                        </div>
+                    </div>
+                    `
 
                     document.querySelector(`#comt${replyid}`).innerHTML += template
                 })
