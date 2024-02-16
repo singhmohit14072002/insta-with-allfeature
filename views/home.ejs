@@ -160,10 +160,10 @@
             </div>
 
         </div>
-        <div class="right ml-[25%] w-[75%] flex py-2 px-2 gap-2">
+        <div class="right ml-[25%] w-[75%] flex py-2 px-2 gap-2 relative">
 
-            <div class="left w-full flex mx-auto h-screen ">
-                <div class="centerpart w-[64%] mx-auto">
+            <div class="left w-full relative  mx-auto h-screen ">
+                <div class="centerpart w-[65%] ">
                     <div class="stories flex pt-2 gap-2  relative">
                         <a href="/createstory"> <i
                                 class="ri-add-circle-line bg-blue-600 text-white px-1 absolute left-[60px] top-[60px] rounded-full"></i></a>
@@ -185,7 +185,7 @@
                         </div>
 
                     </div>
-                    <div class="followingpost w-[400px] absolute min-h flex flex-col gap-2 pt-3">
+                    <div class="followingpost relative  mx-auto w-[400px] absolute min-h flex gap-2 pt-3">
                         <%posts.forEach(singlepost=>{ %>
 
                             <div class="post w-full h-max-h  bg-slate-100 ">
@@ -315,64 +315,66 @@
                             </div>
                     </div>
                 </div>
-                <div class="rightusers w-[25%] top-0 right-0 absolute  h-screen p-3">
-                    <div class="mainuser flex items-center justify-between">
-                        <div class="profile-img flex items-center gap-2">
-                            <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
-                                <img class="w-full h-full object-cover rounded-full" src="<%=loggedinuser.profilepic%>"
-                                    alt="">
-                            </div>
-                            <div class="details leading-[20px]">
-                                <h1>
-                                    <%=loggedinuser.username%>
-                                </h1>
-                                <h1>
-                                    <%=loggedinuser.name%>
-                                </h1>
-                            </div>
-                        </div>
-                        <a class="font-bold" href="">Switch</a>
+                
+            </div>
+            
+        </div>
+        <div class="rightusers min-w-[325px] absolute right-0 top-0   p-3">
+            <div class="mainuser flex items-center justify-between">
+                <div class="profile-img flex items-center gap-2">
+                    <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
+                        <img class="w-full h-full object-cover rounded-full" src="<%=loggedinuser.profilepic%>"
+                            alt="">
                     </div>
-                    <h1 class="my-3 font-semibold">Suggested for you</h1>
-
-                    <div class="suggesteduser w-full flex flex-col gap-2">
-                        <%allUser.forEach(singleuser=>{ %>
-                            <div onclick="" class="mainuser w-full flex items-center justify-between">
-                                <a href="/userprofile/<%=singleuser._id%>">
-                                    <div class="profile-img  flex items-center gap-2">
-                                        <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
-                                            <img class="w-full h-full object-cover rounded-full"
-                                                src="<%=singleuser.profilepic%>" alt="">
-                                        </div>
-                                        <div class="details leading-[20px]">
-                                            <h1>
-                                                <%=singleuser.username%>
-                                            </h1>
-                                            <h1>
-                                                <%=singleuser.name%>
-                                            </h1>
-                                        </div>
-                                    </div>
-                                </a>
-                                <%if(singleuser.follower.includes(loggedinuser._id)){%>
-                                    <a data-state="<%=singleuser._id%>" id="followRequest"
-                                        class="font-bold text-white bg-red-500 px-3 py-1 rounded"
-                                        href="/unfollow/<%=singleuser._id%>">UnFollow</a>
-                                    <%}else if(singleuser.requests.includes(loggedinuser._id)){%>
-                                        <a data-state="<%=singleuser._id%>" id="followRequest"
-                                            class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
-                                            href="/requested/<%=singleuser._id%>">Requested</a>
-                                        <%} else { %>
-                                            <a data-state="<%=singleuser._id%>" id="followRequest"
-                                                class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
-                                                href="/follow/<%=singleuser._id%>">Follow</a>
-                                            <%}%>
-                            </div>
-                            <%})%>
-
-
+                    <div class="details leading-[20px]">
+                        <h1>
+                            <%=loggedinuser.username%>
+                        </h1>
+                        <h1>
+                            <%=loggedinuser.name%>
+                        </h1>
                     </div>
                 </div>
+                <a class="font-bold" href="">Switch</a>
+            </div>
+            <h1 class="my-3 font-semibold">Suggested for you</h1>
+
+            <div class="suggesteduser w-full flex flex-col gap-2">
+                <%allUser.forEach(singleuser=>{ %>
+                    <div onclick="" class="mainuser w-full flex items-center justify-between">
+                        <a href="/userprofile/<%=singleuser._id%>">
+                            <div class="profile-img  flex items-center gap-2">
+                                <div class="img w-[60px] h-[60px] bg-sky-300 rounded-full">
+                                    <img class="w-full h-full object-cover rounded-full"
+                                        src="<%=singleuser.profilepic%>" alt="">
+                                </div>
+                                <div class="details leading-[20px]">
+                                    <h1>
+                                        <%=singleuser.username%>
+                                    </h1>
+                                    <h1>
+                                        <%=singleuser.name%>
+                                    </h1>
+                                </div>
+                            </div>
+                        </a>
+                        <%if(singleuser.follower.includes(loggedinuser._id)){%>
+                            <a data-state="<%=singleuser._id%>" id="followRequest"
+                                class="font-bold text-white bg-red-500 px-3 py-1 rounded"
+                                href="/unfollow/<%=singleuser._id%>">UnFollow</a>
+                            <%}else if(singleuser.requests.includes(loggedinuser._id)){%>
+                                <a data-state="<%=singleuser._id%>" id="followRequest"
+                                    class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
+                                    href="/requested/<%=singleuser._id%>">Requested</a>
+                                <%} else { %>
+                                    <a data-state="<%=singleuser._id%>" id="followRequest"
+                                        class="font-bold text-white bg-blue-500 px-3 py-1 rounded"
+                                        href="/follow/<%=singleuser._id%>">Follow</a>
+                                    <%}%>
+                    </div>
+                    <%})%>
+
+
             </div>
         </div>
         <script>
