@@ -446,7 +446,8 @@ router.get("/reply", isLoggedIn, async function(req, res, next){
     postid:req.query.postid,
     reply:req.query.reply,
   })
-  const parentComment=await commentModel.findById(req.query.commentid);
+  console.log(req.query.commentid);
+  const parentComment= await commentModel.findById(req.query.commentid);
 
   parentComment.reply.push(newReply._id)
   await parentComment.populate({path:"reply", populate:"userid"})
